@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<language_definitions>
+   <language processor="c166"
+            endian="little"
+            size="16"
+            variant="c166v2"
+            version="0.1"
+            slafile="c166.sla"
+            processorspec="c166.pspec"
+            id="C166:LE:16:default">
+    <description>Bosch C166 microprocessor</description>
+    <compiler name="default" spec="c166.cspec" id="default"/>
+  </language> 
+</language_definitions>
