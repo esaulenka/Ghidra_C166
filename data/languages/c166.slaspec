@@ -198,6 +198,8 @@ mem1631_w: mem1631 is mem1631 { export *:2 mem1631; }
 mem1631_b: mem1631 is mem1631 { export *:1 mem1631; }
 
 
+off1631: s1631 is s1631 { local x:2 = s1631; export x; } # TODO should use DPPx
+
 
 # 8-bit addressing to GPRs
 r0815:  r0811   is r0811 & op1215=0xF            { export r0811;  }
@@ -869,8 +871,8 @@ macro mov_w (a,b) {
 :mov r1215, r0811 is op0007=0xF0 & r0811 & r1215 {
 	mov_w(r1215, r0811);
 }
-:mov r1215, [r0811 + #s1631] is op0007=0xD4 & r0811 & r1215 ; s1631 {
-	local tmp:2; read_w(tmp, r0811 + s1631);
+:mov r1215, [r0811 + #off1631] is op0007=0xD4 & r0811 & r1215 ; off1631 {
+	local tmp:2; read_w(tmp, r0811 + off1631);
 	mov_w(r1215, tmp);
 }
 :mov r1215, [r0811+] is op0007=0x98 & r0811 & r1215 {
@@ -888,10 +890,10 @@ macro mov_w (a,b) {
 	mov_w(tmp, r1215);
 	write_w(r0811, tmp);
 }
-:mov [r0811 + #s1631], r1215 is op0007=0xC4 & r0811 & r1215 ; s1631 {
+:mov [r0811 + #off1631], r1215 is op0007=0xC4 & r0811 & r1215 ; off1631 {
 	local tmp:2;
 	mov_w(tmp, r1215);
-	write_w(r0811 + s1631, tmp);
+	write_w(r0811 + off1631, tmp);
 }
 :mov [r0811], r1215 is op0007=0xB8 & r0811 & r1215 {
 	local tmp:2;
@@ -957,8 +959,8 @@ macro mov_b (a,b) {
 :movb rb1215, rb0811 is op0007=0xF1 & rb0811 & rb1215 {
 	mov_b(rb1215, rb0811);
 }
-:movb rb1215, [r0811 + #s1631] is op0007=0xF4 & r0811 & rb1215 ; s1631 {
-	local tmp:1; read_b(tmp, r0811 + s1631);
+:movb rb1215, [r0811 + #off1631] is op0007=0xF4 & r0811 & rb1215 ; off1631 {
+	local tmp:1; read_b(tmp, r0811 + off1631);
 	mov_b(rb1215, tmp);
 }
 :movb rb1215, [r0811+] is op0007=0x99 & r0811 & rb1215 {
@@ -976,10 +978,10 @@ macro mov_b (a,b) {
 	mov_b(tmp, rb1215);
 	write_b(r0811, tmp);
 }
-:movb [r0811 + #s1631], rb1215 is op0007=0xE4 & r0811 & rb1215 ; s1631 {
+:movb [r0811 + #off1631], rb1215 is op0007=0xE4 & r0811 & rb1215 ; off1631 {
 	local tmp:1;
 	mov_b(tmp, rb1215);
-	write_b(r0811 + s1631, tmp);
+	write_b(r0811 + off1631, tmp);
 }
 :movb [r0811], rb1215 is op0007=0xB9 & r0811 & rb1215 {
 	local tmp:1;
@@ -1267,9 +1269,9 @@ macro rotate_right(a, b) {
 # :sbrk is op0007=0x8C & op0815=0 
 
 
-:scxt r0815, #s1631 is op0007=0xC6 & r0815 ; s1631 {
+:scxt r0815, #u1631 is op0007=0xC6 & r0815 ; u1631 {
 	local tmp1:2 = r0815;
-	local tmp2:2 = s1631;
+	local tmp2:2 = u1631;
 	SP = SP - 2;
 	write_w(SP, tmp1);
 	r0815 = tmp2;
@@ -1390,7 +1392,7 @@ macro subc_w(a,b) {
 	subc_w (r0815, mem1631_w);
 }
 :subc r0815, #s1631 is op0007=0x36 & r0815 ; s1631 {
-	subc_w (r0815, s1631);
+	subc_w (r0815, s1631:2);
 }
 
 
@@ -1413,8 +1415,8 @@ macro subc_b(a,b) {
 :subcb rb0815, mem1631_b is op0007=0x33 & rb0815 ; mem1631_b {
 	subc_b (rb0815, mem1631_b);
 }
-:subcb rb0815, #s1631 is op0007=0x37 & rb0815 ; s1631 {
-	subc_b (rb0815, s1631);
+:subcb rb0815, #s1623 is op0007=0x37 & rb0815 ; s1623 {
+	subc_b (rb0815, s1623);
 }
 
 
