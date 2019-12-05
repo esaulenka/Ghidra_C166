@@ -2,10 +2,12 @@
 
 <compiler_spec>
 
+<!--
   <spacebase name="dpp0_" register="DPP0" space="ram"/>
   <spacebase name="dpp1_" register="DPP1" space="ram"/>
   <spacebase name="dpp2_" register="DPP2" space="ram"/>
   <spacebase name="dpp3_" register="DPP3" space="ram"/>
+-->
 
   <global>
     <range space="ram"/>
@@ -38,6 +40,12 @@
       </output>
       <unaffected>
         <register name="SP"/>
+
+		<register name="DPP0"/>
+		<register name="DPP1"/>
+		<register name="DPP2"/>
+		<register name="DPP3"/>
+
       </unaffected>
     </prototype>
   </default_proto>

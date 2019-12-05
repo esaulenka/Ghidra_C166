@@ -6,25 +6,25 @@ define space ram      type=ram_space      size=3  default;
 define space register type=register_space size=2;
 
 # general purpose registers TODO: should use context pointer CP
-define ram offset=0xFC00 size=2 
+define register offset=0xFC00 size=2
 	[ r0 r1 r2 r3 r4 r5 r6 r7 r8 r9 r10 r11 r12 r13 r14 r15 ];
-define ram offset=0xFC00 size=1 
+define register offset=0xFC00 size=1
 	[ RL0 RH0 RL1 RH1 RL2 RH2 RL3 RH3 RL4 RH4 RL5 RH5 RL6 RH6 RL7 RH7 ];
 
 
 # special purpose registers 
-define ram offset=0xFE00 size=2 # FE00..FE1F
+define register offset=0xFE00 size=2 # FE00..FE1F
 	[ DPP0 DPP1 DPP2 DPP3 CSP FE0A MDH MDL CP SP STKOV STKUN CPUCON1 CPUCON2 FE1C FE1E ];
-define ram offset=0xF000 size=2 # F000..F00D
-	[ QX0 QX1 QR0 QR1 _ _ CPUID ];
-define ram offset=0xFE5C size=2 # FE5C..FE5F
-	[ MAL MAH ];
-define ram offset=0xFF08 size=2 # FF08..FF1F
+#define register offset=0xF000 size=2 # F000..F00D
+#	[ QX0 QX1 QR0 QR1 _ _ CPUID ];
+# define register offset=0xFE5C size=2 # FE5C..FE5F
+#	[ MAL MAH ];
+define register offset=0xFF08 size=2 # FF08..FF1F
 	[ IDX0 IDX1 SPSEG MDC PSW VECSEG _ _ _ _ ZEROS ONES ];
-define ram offset=0xFFAC size=2 # FFAC..FFAD
-	[ TFR ];
-define ram offset=0xFFDA size=2 # FFDA..FFDF
-	[ MRW MCW MSW ];
+# define register offset=0xFFAC size=2 # FFAC..FFAD
+#	[ TFR ];
+# define register offset=0xFFDA size=2 # FFDA..FFDF
+#	[ MRW MCW MSW ];
 
 
 define register offset=0 size=3 	[ IP ];		# instruction pointer
@@ -189,10 +189,16 @@ operand2_b: [r0809]		is op0003=9 & op1011=2 & r0809	{ local x:1; read_b(x, r0809
 operand2_b: [r0809+]	is op0003=9 & op1011=3 & r0809	{ local x:1; read_b(x, r0809); r0809 = r0809 + 1; export x;	}
 
 
-mem1631: addr is dpp3031=0 & off1629 [ addr = (DPP0<<14) | off1629; ]	{ local x:3 = addr; export x; }
-mem1631: addr is dpp3031=1 & off1629 [ addr = (DPP1<<14) | off1629; ]	{ local x:3 = addr; export x; }
-mem1631: addr is dpp3031=2 & off1629 [ addr = (DPP2<<14) | off1629; ]	{ local x:3 = addr; export x; }
-mem1631: addr is dpp3031=3 & off1629 [ addr = (DPP3<<14) | off1629; ]	{ local x:3 = addr; export x; }
+# mem1631: addr is dpp3031=0 & off1629 [ addr = (DPP0<<14) | off1629; ]	{ local x:3 = addr; export x; }
+# mem1631: addr is dpp3031=1 & off1629 [ addr = (DPP1<<14) | off1629; ]	{ local x:3 = addr; export x; }
+# mem1631: addr is dpp3031=2 & off1629 [ addr = (DPP2<<14) | off1629; ]	{ local x:3 = addr; export x; }
+# mem1631: addr is dpp3031=3 & off1629 [ addr = (DPP3<<14) | off1629; ]	{ local x:3 = addr; export x; }
+
+mem1631: addr is dpp3031=0 & off1629 [ addr = (DPP0<<14) | off1629; ]	{ local x:3 = zext(DPP0<<14) | off1629; export x; }
+mem1631: addr is dpp3031=1 & off1629 [ addr = (DPP1<<14) | off1629; ]	{ local x:3 = zext(DPP1<<14) | off1629; export x; }
+mem1631: addr is dpp3031=2 & off1629 [ addr = (DPP2<<14) | off1629; ]	{ local x:3 = zext(DPP2<<14) | off1629; export x; }
+mem1631: addr is dpp3031=3 & off1629 [ addr = (DPP3<<14) | off1629; ]	{ local x:3 = zext(DPP3<<14) | off1629; export x; }
+
 
 mem1631_w: mem1631 is mem1631 { export *:2 mem1631; }
 mem1631_b: mem1631 is mem1631 { export *:1 mem1631; }
@@ -550,8 +556,8 @@ macro bitop_flags2(op1, op2) {
 :calla cc1215, mem1631 is op0007=0xCA & cc1215; mem1631 {
 	if (cc1215 == 0) goto inst_next;
 	SP = SP - 2;
-	local ip:2 = inst_next;
-	write_w(SP, ip);
+	# local ip:2 = inst_next;
+	# write_w(SP, ip);
 	IP = mem1631;
 	call mem1631;
 }
@@ -559,8 +565,8 @@ macro bitop_flags2(op1, op2) {
 :calli cc1215, [r0811] is op0007=0xAB & r0811 & cc1215 {
 	if (cc1215 == 0) goto inst_next;
 	SP = SP - 2;
-	local ip:2 = inst_next;
-	write_w(SP, ip);
+	# local ip:2 = inst_next;
+	# write_w(SP, ip);
 	local addr:3 = (inst_next & 0xFF0000) | zext(r0811);
 	IP = addr;
 	call [addr];
@@ -576,10 +582,10 @@ macro bitop_flags2(op1, op2) {
 
 :calls addr is op0007=0xDA & u0815 ; u1631 [ addr = (u0815 << 16) | u1631; ] {
 	SP = SP - 4;
-	local stack:3; expand_addr(stack, SP);
-	# *:2 (stack + 2) = CSP;
-	ip:2 = inst_next;
-	*:2 stack = ip;	# save current IP
+	# local stack:3; expand_addr(stack, SP);
+	# # *:2 (stack + 2) = CSP;
+	# ip:2 = inst_next;
+	# *:2 stack = ip;	# save current IP
 	# TODO if (CPUCON1.SGTDIS) CSP = zext(u0815);
 	IP = addr;
 	call [IP];
@@ -1147,12 +1153,12 @@ macro or_b(a, b) {
 :pcall r0815, addr is op0007=0xE2 & r0815 ; u1631 
 [ addr = (inst_next & 0xFF0000) | u1631; ]
 {
-	local tmp = r0815;
+#	local tmp = r0815;
 	SP = SP - 4;
-	local stack:3; expand_addr(stack, SP);
-	*:2 (stack + 2) = tmp;
-	ip:2 = inst_next;
-	*:2 stack = ip;	# save current IP
+#	local stack:3; expand_addr(stack, SP);
+#	*:2 (stack + 2) = tmp;
+#	ip:2 = inst_next;
+#	*:2 stack = ip;	# save current IP
 	IP = addr;
 	goto [addr:3];
 }
@@ -1209,23 +1215,23 @@ define pcodeop __power_down;
 }
 
 :reti is op0007=0xFB & op0815=0x88 {
-	local phys:3;	expand_addr(phys, SP);
-	IP =  *:2 (phys + 0);
-	PSW = *:2 (phys + 2);
+	local stack:3;	expand_addr(stack, SP);
+	IP =  *:2 (stack + 0);
+	PSW = *:2 (stack + 2);
 	SP = SP + 4;
 	return [IP];
 }
 
 :retp r0815 is op0007=0xEB & r0815 {
-	local phys:3;	expand_addr(phys, SP);
-	IP =  *:2 (phys + 0);
-	r0815 = *:2 (phys + 2);
+	local stack:3;	expand_addr(stack, SP);
+	IP =  *:2 (stack + 0);
+	r0815 = *:2 (stack + 2);
 	SP = SP + 4;
 	return [IP];
 }
 
 :rets is op0007=0xDB & op0815=0 {
-	read_w(IP, SP);
+#	read_w(IP, SP);
 	SP = SP + 2;
 	return [IP];
 }
