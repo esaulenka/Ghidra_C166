@@ -27,7 +27,7 @@ define register offset=0xFF08 size=2 # FF08..FF1F
 #	[ MRW MCW MSW ];
 
 
-define register offset=0 size=3 	[ IP ];		# instruction pointer
+define register offset=0 size=3 	[ IP Stack ];		# virtual instruction and stack pointers
 
 # extended addressing fake register
 define register offset=0x10 size=4	[ extAddressing ];
@@ -208,13 +208,14 @@ off1631: s1631 is s1631 { local x:2 = s1631; export x; } # TODO should use DPPx
 
 
 # 8-bit addressing to GPRs
+
 r0815:  r0811   is r0811 & op1215=0xF            { export r0811;  }
 r0815:  r0811_0 is r0811_0 & op1215=0   & extR=0 { export r0811_0; }
 r0815:  ZEROS   is op0815=0x8E & ZEROS  & extR=0 { local x:2=0; export x;  }
 r0815:  ONES    is op0815=0x8F & ONES   & extR=0 { local x:2=0xFFFF; export x;  }
 r0815:  addr	is op0815 & op1215!=0xF & extR=0 & op1215!=0
 	[ addr = 0xFE00 | op0815 * 2; ]{ export *:2 addr; }	# SFR
-r0815:  addr	is op0815 & op1215!=0xF & extR=1 
+r0815:  addr	is op0815 & op1215!=0xF & extR!=0
 	[ addr = 0xF000 | op0815 * 2; ]{ export *:2 addr; }	# Extended SFR
 
 rb0815: rb0811  is rb0811 & op1215=0xF           { export rb0811; }
@@ -223,8 +224,10 @@ rb0815: ZEROS   is op0815=0x8E & ZEROS  & extR=0 { local x:1=0; export x;  }
 rb0815: ONES    is op0815=0x8F & ONES   & extR=0 { local x:1=0xFF; export x;  }
 rb0815: addr	is op0815 & op1215!=0xF & extR=0
 	[ addr = 0xFE00 | op0815 * 2; ]{ export *:1 addr; }	# SFR
-rb0815: addr	is op0815 & op1215!=0xF & extR=1
+rb0815: addr	is op0815 & op1215!=0xF & extR!=0
 	[ addr = 0xF000 | op0815 * 2; ]{ export *:1 addr; }	# Extended SFR
+
+# bit addressing
 
 bit0815:  r0811   is r0811 & op1215=0xF           { export r0811;  }
 bit0815:  r0811_0 is r0811_0 & op1215=0  & extR=0 { export r0811_0; }
@@ -232,7 +235,7 @@ bit0815:  ZEROS   is op0815=0x8E & ZEROS & extR=0 { local x:2=0; export x;  }
 bit0815:  ONES    is op0815=0x8F & ONES  & extR=0 { local x:2=0xFFFF; export x;  }
 bit0815:  addr	  is op0814 & op15=1     & extR=0 
 	[ addr = 0xFF00 | op0814 * 2; ] { export *:2 addr; }	# SFR
-bit0815:  addr	  is op0814 & op15=1     & extR=1 
+bit0815:  addr	  is op0814 & op15=1     & extR!=0
 	[ addr = 0xF100 | op0814 * 2; ] { export *:2 addr; }	# Extended SFR
 bit0815:  addr	  is op0814 & op15=0 
 	[ addr = 0xFD00 | op0814 * 2; ] { export *:2 addr; }	# RAM
@@ -245,7 +248,7 @@ bit1623:  ZEROS   is op1623=0x8E & ZEROS & extR=0 { local x:2=0; export x;  }
 bit1623:  ONES    is op1623=0x8F & ONES  & extR=0 { local x:2=0xFFFF; export x;  }
 bit1623:  addr	  is op1622 & op23=1     & extR=0 
 [ addr = 0xFF00 | op1622 * 2; ] { export *:2 addr; }	# SFR
-bit1623:  addr	  is op1622 & op23=1     & extR=1 
+bit1623:  addr	  is op1622 & op23=1     & extR!=0
 [ addr = 0xF100 | op1622 * 2; ] { export *:2 addr; }	# Extended SFR
 bit1623:  addr	  is op1622 & op23=0
 [ addr = 0xFD00 | op1622 * 2; ] { export *:2 addr; }	# RAM
@@ -555,37 +558,36 @@ macro bitop_flags2(op1, op2) {
 
 :calla cc1215, mem1631 is op0007=0xCA & cc1215; mem1631 {
 	if (cc1215 == 0) goto inst_next;
-	SP = SP - 2;
-	# local ip:2 = inst_next;
-	# write_w(SP, ip);
+	Stack = Stack - 2;
+	local ret:2 = inst_next;
+	*:2 Stack = ret;
 	IP = mem1631;
 	call mem1631;
 }
 
 :calli cc1215, [r0811] is op0007=0xAB & r0811 & cc1215 {
 	if (cc1215 == 0) goto inst_next;
-	SP = SP - 2;
-	# local ip:2 = inst_next;
-	# write_w(SP, ip);
+	Stack = Stack - 2;
+	local ret:2 = inst_next;
+	*:2 Stack = ret;
 	local addr:3 = (inst_next & 0xFF0000) | zext(r0811);
 	IP = addr;
 	call [addr];
 }
 
 :callr addr is op0007=0xBB & s0815 [ addr = inst_start + s0815*2; ] {
-	SP = SP - 2;
-	local ip:2 = inst_next;
-	write_w(SP, ip);
+	Stack = Stack - 2;
+	local ret:2 = inst_next;
+	*:2 Stack = ret;
 	IP = addr;
 	call [IP];
 }
 
 :calls addr is op0007=0xDA & u0815 ; u1631 [ addr = (u0815 << 16) | u1631; ] {
-	SP = SP - 4;
-	# local stack:3; expand_addr(stack, SP);
-	# # *:2 (stack + 2) = CSP;
-	# ip:2 = inst_next;
-	# *:2 stack = ip;	# save current IP
+	Stack = Stack - 4;
+	*:2 (Stack + 2) = CSP;
+	local ret:2 = inst_next;
+	*:2 Stack = ret;	# save current IP
 	# TODO if (CPUCON1.SGTDIS) CSP = zext(u0815);
 	IP = addr;
 	call [IP];
@@ -1153,20 +1155,19 @@ macro or_b(a, b) {
 :pcall r0815, addr is op0007=0xE2 & r0815 ; u1631 
 [ addr = (inst_next & 0xFF0000) | u1631; ]
 {
-#	local tmp = r0815;
-	SP = SP - 4;
-#	local stack:3; expand_addr(stack, SP);
-#	*:2 (stack + 2) = tmp;
-#	ip:2 = inst_next;
-#	*:2 stack = ip;	# save current IP
+	local tmp = r0815;
+	Stack = Stack - 4;
+	*:2 (Stack + 2) = tmp;
+	local ret:2 = inst_next;
+	*:2 Stack = ret;	# save current IP
 	IP = addr;
 	goto [addr:3];
 }
 
 
 :pop r0815 is op0007=0xFC & r0815 {
-	local tmp:2; read_w(tmp, SP);
-	SP = SP + 2;
+	local tmp = *:2 Stack;
+	Stack = Stack + 2;
 	r0815 = tmp;
 	mov_w_flags(tmp);
 }
@@ -1195,8 +1196,8 @@ macro or_b(a, b) {
 
 :push r0815 is op0007=0xEC & r0815 {
 	local tmp:2 = r0815;
-	SP = SP - 2;
-	write_w(SP, tmp);
+	Stack = Stack - 2;
+	*:2 Stack = tmp;
 	mov_w_flags(tmp);
 }
 
@@ -1209,30 +1210,28 @@ define pcodeop __power_down;
 
 
 :ret is op0007=0xCB & op0815=0 {
-	read_w(IP, SP);
-	SP = SP + 2;
+	IP = *:2 Stack;
+	Stack = Stack + 2;
 	return [IP];
 }
 
 :reti is op0007=0xFB & op0815=0x88 {
-	local stack:3;	expand_addr(stack, SP);
-	IP =  *:2 (stack + 0);
-	PSW = *:2 (stack + 2);
-	SP = SP + 4;
+	IP =  *:2 (Stack + 0);
+	PSW = *:2 (Stack + 2);
+	Stack = Stack + 4;
 	return [IP];
 }
 
 :retp r0815 is op0007=0xEB & r0815 {
-	local stack:3;	expand_addr(stack, SP);
-	IP =  *:2 (stack + 0);
-	r0815 = *:2 (stack + 2);
-	SP = SP + 4;
+	IP =  *:2 (Stack + 0);
+	r0815 = *:2 (Stack + 2);
+	Stack = Stack + 4;
 	return [IP];
 }
 
 :rets is op0007=0xDB & op0815=0 {
-#	read_w(IP, SP);
-	SP = SP + 2;
+	IP = *:2 Stack;
+	Stack = Stack + 2;
 	return [IP];
 }
 
@@ -1278,15 +1277,15 @@ macro rotate_right(a, b) {
 :scxt r0815, #u1631 is op0007=0xC6 & r0815 ; u1631 {
 	local tmp1:2 = r0815;
 	local tmp2:2 = u1631;
-	SP = SP - 2;
-	write_w(SP, tmp1);
+	Stack = Stack - 2;
+	*:2 Stack = tmp1;
 	r0815 = tmp2;
 }
 :scxt r0815, mem1631_w is op0007=0xD6 & r0815 ; mem1631_w {
 	local tmp1:2 = r0815;
 	local tmp2:2 = mem1631_w;
-	SP = SP - 2;
-	write_w(SP, tmp1);
+	Stack = Stack - 2;
+	*:2 Stack = tmp1;
 	r0815 = tmp2;
 }
 
