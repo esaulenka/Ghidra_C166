@@ -13,21 +13,78 @@ define register offset=0xFC00 size=1
 
 
 # special purpose registers 
-define register offset=0xFE00 size=2 # FE00..FE1F
-	[ DPP0 DPP1 DPP2 DPP3 CSP FE0A MDH MDL CP SP STKOV STKUN CPUCON1 CPUCON2 FE1C FE1E ];
-#define register offset=0xF000 size=2 # F000..F00D
-#	[ QX0 QX1 QR0 QR1 _ _ CPUID ];
-# define register offset=0xFE5C size=2 # FE5C..FE5F
-#	[ MAL MAH ];
-define register offset=0xFF08 size=2 # FF08..FF1F
-	[ IDX0 IDX1 SPSEG MDC PSW VECSEG _ _ _ _ ZEROS ONES ];
-# define register offset=0xFFAC size=2 # FFAC..FFAD
-#	[ TFR ];
-# define register offset=0xFFDA size=2 # FFDA..FFDF
-#	[ MRW MCW MSW ];
+define register offset=0xFE00 size=2
+       [ DPP0    DPP1    DPP2    DPP3    CSP     sprfe0a MDH     MDL
+         CP      SP      STKOV   STKUN   CPUCON1 CPUCON2 sprfe1c sprfe1e 
+         sprfe20 sprfe22 sprfe24 sprfe26 sprfe28 sprfe2a sprfe2c sprfe2e 
+         sprfe30 sprfe32 sprfe34 sprfe36 sprfe38 sprfe3a sprfe3c sprfe3e 
+         sprfe40 sprfe42 sprfe44 sprfe46 sprfe48 sprfe4a sprfe4c sprfe4e 
+         sprfe50 sprfe52 sprfe54 sprfe56 sprfe58 sprfe5a sprfe5c sprfe5e 
+         sprfe60 sprfe62 sprfe64 sprfe66 sprfe68 sprfe6a sprfe6c sprfe6e 
+         sprfe70 sprfe72 sprfe74 sprfe76 sprfe78 sprfe7a sprfe7c sprfe7e 
+         sprfe80 sprfe82 sprfe84 sprfe86 sprfe88 sprfe8a sprfe8c sprfe8e 
+         sprfe90 sprfe92 sprfe94 sprfe96 sprfe98 sprfe9a sprfe9c sprfe9e 
+         sprfea0 sprfea2 sprfea4 sprfea6 sprfea8 sprfeaa sprfeac sprfeae 
+         sprfeb0 sprfeb2 sprfeb4 sprfeb6 sprfeb8 sprfeba sprfebc sprfebe 
+         sprfec0 sprfec2 sprfec4 sprfec6 sprfec8 sprfeca sprfecc sprfece 
+         sprfed0 sprfed2 sprfed4 sprfed6 sprfed8 sprfeda sprfedc sprfede 
+         sprfee0 sprfee2 sprfee4 sprfee6 sprfee8 sprfeea sprfeec sprfeee 
+         sprfef0 sprfef2 sprfef4 sprfef6 sprfef8 sprfefa sprfefc sprfefe 
+         sprff00 sprff02 sprff04 sprff06 sprff08 sprff0a sprff0c sprff0e 
+         PSW     sprff12 sprff14 sprff16 sprff18 sprff1a sprff1c sprff1e 
+         sprff20 sprff22 sprff24 sprff26 sprff28 sprff2a sprff2c sprff2e 
+         sprff30 sprff32 sprff34 sprff36 sprff38 sprff3a sprff3c sprff3e 
+         sprff40 sprff42 sprff44 sprff46 sprff48 sprff4a sprff4c sprff4e 
+         sprff50 sprff52 sprff54 sprff56 sprff58 sprff5a sprff5c sprff5e 
+         sprff60 sprff62 sprff64 sprff66 sprff68 sprff6a sprff6c sprff6e 
+         sprff70 sprff72 sprff74 sprff76 sprff78 sprff7a sprff7c sprff7e 
+         sprff80 sprff82 sprff84 sprff86 sprff88 sprff8a sprff8c sprff8e 
+         sprff90 sprff92 sprff94 sprff96 sprff98 sprff9a sprff9c sprff9e 
+         sprffa0 sprffa2 sprffa4 sprffa6 sprffa8 sprffaa sprffac sprffae 
+         sprffb0 sprffb2 sprffb4 sprffb6 sprffb8 sprffba sprffbc sprffbe 
+         sprffc0 sprffc2 sprffc4 sprffc6 sprffc8 sprffca sprffcc sprffce 
+         sprffd0 sprffd2 sprffd4 sprffd6 sprffd8 sprffda sprffdc sprffde 
+         sprffe0 sprffe2 sprffe4 sprffe6 sprffe8 sprffea sprffec sprffee 
+         sprfff0 sprfff2 sprfff4 sprfff6 sprfff8 sprfffa sprfffc sprfffe ];
+
+define register offset=0xF000 size=2
+       [ esprf000 esprf002 esprf004 esprf006 esprf008 esprf00a esprf00c esprf00e 
+         esprf010 esprf012 esprf014 esprf016 esprf018 esprf01a esprf01c esprf01e 
+         esprf020 esprf022 esprf024 esprf026 esprf028 esprf02a esprf02c esprf02e 
+         esprf030 esprf032 esprf034 esprf036 esprf038 esprf03a esprf03c esprf03e 
+         esprf040 esprf042 esprf044 esprf046 esprf048 esprf04a esprf04c esprf04e 
+         esprf050 esprf052 esprf054 esprf056 esprf058 esprf05a esprf05c esprf05e 
+         esprf060 esprf062 esprf064 esprf066 esprf068 esprf06a esprf06c esprf06e 
+         esprf070 esprf072 esprf074 esprf076 esprf078 esprf07a esprf07c esprf07e 
+         esprf080 esprf082 esprf084 esprf086 esprf088 esprf08a esprf08c esprf08e 
+         esprf090 esprf092 esprf094 esprf096 esprf098 esprf09a esprf09c esprf09e 
+         esprf0a0 esprf0a2 esprf0a4 esprf0a6 esprf0a8 esprf0aa esprf0ac esprf0ae 
+         esprf0b0 esprf0b2 esprf0b4 esprf0b6 esprf0b8 esprf0ba esprf0bc esprf0be 
+         esprf0c0 esprf0c2 esprf0c4 esprf0c6 esprf0c8 esprf0ca esprf0cc esprf0ce 
+         esprf0d0 esprf0d2 esprf0d4 esprf0d6 esprf0d8 esprf0da esprf0dc esprf0de 
+         esprf0e0 esprf0e2 esprf0e4 esprf0e6 esprf0e8 esprf0ea esprf0ec esprf0ee 
+         esprf0f0 esprf0f2 esprf0f4 esprf0f6 esprf0f8 esprf0fa esprf0fc esprf0fe 
+         esprf100 esprf102 esprf104 esprf106 esprf108 esprf10a esprf10c esprf10e 
+         esprf110 esprf112 esprf114 esprf116 esprf118 esprf11a esprf11c esprf11e 
+         esprf120 esprf122 esprf124 esprf126 esprf128 esprf12a esprf12c esprf12e 
+         esprf130 esprf132 esprf134 esprf136 esprf138 esprf13a esprf13c esprf13e 
+         esprf140 esprf142 esprf144 esprf146 esprf148 esprf14a esprf14c esprf14e 
+         esprf150 esprf152 esprf154 esprf156 esprf158 esprf15a esprf15c esprf15e 
+         esprf160 esprf162 esprf164 esprf166 esprf168 esprf16a esprf16c esprf16e 
+         esprf170 esprf172 esprf174 esprf176 esprf178 esprf17a esprf17c esprf17e 
+         esprf180 esprf182 esprf184 esprf186 esprf188 esprf18a esprf18c esprf18e 
+         esprf190 esprf192 esprf194 esprf196 esprf198 esprf19a esprf19c esprf19e 
+         esprf1a0 esprf1a2 esprf1a4 esprf1a6 esprf1a8 esprf1aa esprf1ac esprf1ae 
+         esprf1b0 esprf1b2 esprf1b4 esprf1b6 esprf1b8 esprf1ba esprf1bc esprf1be 
+         esprf1c0 esprf1c2 esprf1c4 esprf1c6 esprf1c8 esprf1ca esprf1cc esprf1ce 
+         esprf1d0 esprf1d2 esprf1d4 esprf1d6 esprf1d8 esprf1da esprf1dc esprf1de 
+         esprf1e0 esprf1e2 esprf1e4 esprf1e6 esprf1e8 esprf1ea esprf1ec esprf1ee 
+         esprf1f0 esprf1f2 esprf1f4 esprf1f6 esprf1f8 esprf1fa esprf1fc esprf1fe ];
 
 
-define register offset=0 size=3 	[ IP Stack ];		# virtual instruction and stack pointers
+# Not addressable
+#TODO  size 2 vs 3? how to handle CSP+IP==physical memory address
+define register offset=0 size=3 	[ IP ];
 
 # extended addressing fake register
 define register offset=0x10 size=4	[ extAddressing ];
@@ -81,6 +138,7 @@ define token instr(16)
 	op0003 = (0,3)
 	op0007 = (0,7)
 	op0407 = (4,7)
+	q0407  = (4,7) dec
 	op08   = (8,8)
 	op0811 = (8,11)
 	op0814 = (8,14)
@@ -88,6 +146,8 @@ define token instr(16)
 	u0810  = (8,10)
 	s0815  = (8,15) signed
 	u0815  = (8,15)
+	sfr0815  = (8,15)
+	esfr0815  = (8,15)
 	u0915  = (9,15)
 	op1011 = (10,11)
 	op11   = (11,11)
@@ -111,15 +171,17 @@ define token instr(16)
 define token instr2(16)
 	op1622  = (0,6)
 	op1623  = (0,7)
+	op1625  = (0,9)
 	op1627  = (0,11)
 	op1631  = (0,15)
 	op2023  = (4,7)
 	op23    = (7,7)
 	op2427  = (8,11)
+	z2427	= (8,11) dec
 	op2431  = (8,15)
 	op2831  = (12,15)
+	q2831	= (12,15) dec
 	u1627   = (0,11)
-	s1631   = (0,15) signed
 	u1631   = (0,15)
 	s1623   = (0,7) signed
 	u1623   = (0,7)
@@ -141,8 +203,72 @@ attach variables [ rb0811 rb1215 ]
 attach variables [ rb0809 ]
 	[ RL0 RH0 RL1 RH1 ];
 
-attach variables [ r0811_0 ]		# SFRs at FE0x
-	[ DPP0 DPP1 DPP2 DPP3 CSP FE0A MDH MDL CP SP STKOV STKUN CPUCON1 CPUCON2 FE1C FE1E ];
+attach variables [ sfr0815 ] 
+       [ DPP0    DPP1    DPP2    DPP3    CSP     sprfe0a MDH     MDL
+         CP      SP      STKOV   STKUN   CPUCON1 CPUCON2 sprfe1c sprfe1e 
+         sprfe20 sprfe22 sprfe24 sprfe26 sprfe28 sprfe2a sprfe2c sprfe2e 
+         sprfe30 sprfe32 sprfe34 sprfe36 sprfe38 sprfe3a sprfe3c sprfe3e 
+         sprfe40 sprfe42 sprfe44 sprfe46 sprfe48 sprfe4a sprfe4c sprfe4e 
+         sprfe50 sprfe52 sprfe54 sprfe56 sprfe58 sprfe5a sprfe5c sprfe5e 
+         sprfe60 sprfe62 sprfe64 sprfe66 sprfe68 sprfe6a sprfe6c sprfe6e 
+         sprfe70 sprfe72 sprfe74 sprfe76 sprfe78 sprfe7a sprfe7c sprfe7e 
+         sprfe80 sprfe82 sprfe84 sprfe86 sprfe88 sprfe8a sprfe8c sprfe8e 
+         sprfe90 sprfe92 sprfe94 sprfe96 sprfe98 sprfe9a sprfe9c sprfe9e 
+         sprfea0 sprfea2 sprfea4 sprfea6 sprfea8 sprfeaa sprfeac sprfeae 
+         sprfeb0 sprfeb2 sprfeb4 sprfeb6 sprfeb8 sprfeba sprfebc sprfebe 
+         sprfec0 sprfec2 sprfec4 sprfec6 sprfec8 sprfeca sprfecc sprfece 
+         sprfed0 sprfed2 sprfed4 sprfed6 sprfed8 sprfeda sprfedc sprfede 
+         sprfee0 sprfee2 sprfee4 sprfee6 sprfee8 sprfeea sprfeec sprfeee 
+         sprfef0 sprfef2 sprfef4 sprfef6 sprfef8 sprfefa sprfefc sprfefe 
+         sprff00 sprff02 sprff04 sprff06 sprff08 sprff0a sprff0c sprff0e 
+         PSW     sprff12 sprff14 sprff16 sprff18 sprff1a sprff1c sprff1e 
+         sprff20 sprff22 sprff24 sprff26 sprff28 sprff2a sprff2c sprff2e 
+         sprff30 sprff32 sprff34 sprff36 sprff38 sprff3a sprff3c sprff3e 
+         sprff40 sprff42 sprff44 sprff46 sprff48 sprff4a sprff4c sprff4e 
+         sprff50 sprff52 sprff54 sprff56 sprff58 sprff5a sprff5c sprff5e 
+         sprff60 sprff62 sprff64 sprff66 sprff68 sprff6a sprff6c sprff6e 
+         sprff70 sprff72 sprff74 sprff76 sprff78 sprff7a sprff7c sprff7e 
+         sprff80 sprff82 sprff84 sprff86 sprff88 sprff8a sprff8c sprff8e 
+         sprff90 sprff92 sprff94 sprff96 sprff98 sprff9a sprff9c sprff9e 
+         sprffa0 sprffa2 sprffa4 sprffa6 sprffa8 sprffaa sprffac sprffae 
+         sprffb0 sprffb2 sprffb4 sprffb6 sprffb8 sprffba sprffbc sprffbe 
+         sprffc0 sprffc2 sprffc4 sprffc6 sprffc8 sprffca sprffcc sprffce 
+         sprffd0 sprffd2 sprffd4 sprffd6 sprffd8 sprffda sprffdc sprffde 
+         sprffe0 sprffe2 sprffe4 sprffe6 sprffe8 sprffea sprffec sprffee 
+         sprfff0 sprfff2 sprfff4 sprfff6 sprfff8 sprfffa sprfffc sprfffe ];
+attach variables [ esfr0815 ]
+       [ esprf000 esprf002 esprf004 esprf006 esprf008 esprf00a esprf00c esprf00e 
+         esprf010 esprf012 esprf014 esprf016 esprf018 esprf01a esprf01c esprf01e 
+         esprf020 esprf022 esprf024 esprf026 esprf028 esprf02a esprf02c esprf02e 
+         esprf030 esprf032 esprf034 esprf036 esprf038 esprf03a esprf03c esprf03e 
+         esprf040 esprf042 esprf044 esprf046 esprf048 esprf04a esprf04c esprf04e 
+         esprf050 esprf052 esprf054 esprf056 esprf058 esprf05a esprf05c esprf05e 
+         esprf060 esprf062 esprf064 esprf066 esprf068 esprf06a esprf06c esprf06e 
+         esprf070 esprf072 esprf074 esprf076 esprf078 esprf07a esprf07c esprf07e 
+         esprf080 esprf082 esprf084 esprf086 esprf088 esprf08a esprf08c esprf08e 
+         esprf090 esprf092 esprf094 esprf096 esprf098 esprf09a esprf09c esprf09e 
+         esprf0a0 esprf0a2 esprf0a4 esprf0a6 esprf0a8 esprf0aa esprf0ac esprf0ae 
+         esprf0b0 esprf0b2 esprf0b4 esprf0b6 esprf0b8 esprf0ba esprf0bc esprf0be 
+         esprf0c0 esprf0c2 esprf0c4 esprf0c6 esprf0c8 esprf0ca esprf0cc esprf0ce 
+         esprf0d0 esprf0d2 esprf0d4 esprf0d6 esprf0d8 esprf0da esprf0dc esprf0de 
+         esprf0e0 esprf0e2 esprf0e4 esprf0e6 esprf0e8 esprf0ea esprf0ec esprf0ee 
+         esprf0f0 esprf0f2 esprf0f4 esprf0f6 esprf0f8 esprf0fa esprf0fc esprf0fe 
+         esprf100 esprf102 esprf104 esprf106 esprf108 esprf10a esprf10c esprf10e 
+         esprf110 esprf112 esprf114 esprf116 esprf118 esprf11a esprf11c esprf11e 
+         esprf120 esprf122 esprf124 esprf126 esprf128 esprf12a esprf12c esprf12e 
+         esprf130 esprf132 esprf134 esprf136 esprf138 esprf13a esprf13c esprf13e 
+         esprf140 esprf142 esprf144 esprf146 esprf148 esprf14a esprf14c esprf14e 
+         esprf150 esprf152 esprf154 esprf156 esprf158 esprf15a esprf15c esprf15e 
+         esprf160 esprf162 esprf164 esprf166 esprf168 esprf16a esprf16c esprf16e 
+         esprf170 esprf172 esprf174 esprf176 esprf178 esprf17a esprf17c esprf17e 
+         esprf180 esprf182 esprf184 esprf186 esprf188 esprf18a esprf18c esprf18e 
+         esprf190 esprf192 esprf194 esprf196 esprf198 esprf19a esprf19c esprf19e 
+         esprf1a0 esprf1a2 esprf1a4 esprf1a6 esprf1a8 esprf1aa esprf1ac esprf1ae 
+         esprf1b0 esprf1b2 esprf1b4 esprf1b6 esprf1b8 esprf1ba esprf1bc esprf1be 
+         esprf1c0 esprf1c2 esprf1c4 esprf1c6 esprf1c8 esprf1ca esprf1cc esprf1ce 
+         esprf1d0 esprf1d2 esprf1d4 esprf1d6 esprf1d8 esprf1da esprf1dc esprf1de 
+         esprf1e0 esprf1e2 esprf1e4 esprf1e6 esprf1e8 esprf1ea esprf1ec esprf1ee 
+         esprf1f0 esprf1f2 esprf1f4 esprf1f6 esprf1f8 esprf1fa esprf1fc esprf1fe ];
 
 
 
@@ -157,103 +283,112 @@ macro expand_addr(phys, logic) {
 	phys = (zext(p0 | p1 | p2 | p3) << 14) | zext(logic & 0x3FFF);
 }
 macro read_w(_value, _addr) {
-	local addr = _addr; local phys:3;
+	local addr = _addr;
+	local phys:3;
 	expand_addr(phys, addr);
 	_value = *:2 phys;
 }
 macro read_b(_value, _addr) {
-	local addr = _addr; local phys:3;
+	local addr = _addr;
+	local phys:3;
 	expand_addr(phys, addr);
 	_value = *:1 phys;
 }
 macro write_w(_addr, _value) {
-	local addr = _addr; local phys:3;
+	local addr = _addr;
+	local phys:3;
 	expand_addr(phys, addr);
 	*:2 phys = _value;
 }
 macro write_b(_addr, _value) {
-	local addr = _addr; local phys:3;
+	local addr = _addr;
+	local phys:3;
 	expand_addr(phys, addr);
 	*:1 phys = _value;
 }
 
+Rwn1215: r1215	is r1215	{ export r1215; }
 
-operand2_w: r0811		is op0003=0 & r0811				{ export r0811;	}
-operand2_w: #u0810		is op0003=8 & op11=0 & u0810	{ local x:2; x = u0810;	export x; }
-operand2_w: [r0809]		is op0003=8 & op1011=2 & r0809	{ local x:2; read_w(x, r0809); export x;	}
-operand2_w: [r0809+]	is op0003=8 & op1011=3 & r0809	{ local x:2; read_w(x, r0809); r0809 = r0809 + 2; export x;	}
+Rwn0811: r0811 	is r0811 	{ export r0811; }
+Rwm0811: r0811 	is r0811 	{ export r0811; }
 
-operand2_b: rb0811		is op0003=1 & rb0811			{ export rb0811;	}
-operand2_b: #u0810		is op0003=9 & op11=0 & u0810	{ local x:1; x = u0810;	export x; }
-operand2_b: [r0809]		is op0003=9 & op1011=2 & r0809	{ local x:1; read_b(x, r0809); export x;	}
-operand2_b: [r0809+]	is op0003=9 & op1011=3 & r0809	{ local x:1; read_b(x, r0809); r0809 = r0809 + 1; export x;	}
+Rwi0809: r0809 	is r0809  	{ export r0809; }
 
+Rbn1215: rb1215 is rb1215  	{ export rb1215; }
+Rbm1215: rb1215 is rb1215  	{ export rb1215; }
+Rbm0811: rb0811	is rb0811	{ export rb0811; }
+Rbn0811: rb0811	is rb0811	{ export rb0811; }
 
-# mem1631: addr is dpp3031=0 & off1629 [ addr = (DPP0<<14) | off1629; ]	{ local x:3 = addr; export x; }
-# mem1631: addr is dpp3031=1 & off1629 [ addr = (DPP1<<14) | off1629; ]	{ local x:3 = addr; export x; }
-# mem1631: addr is dpp3031=2 & off1629 [ addr = (DPP2<<14) | off1629; ]	{ local x:3 = addr; export x; }
-# mem1631: addr is dpp3031=3 & off1629 [ addr = (DPP3<<14) | off1629; ]	{ local x:3 = addr; export x; }
+op2_w: Rwm0811	   is op0003=0 & Rwm0811		{ export Rwm0811; }
+op2_w: #u0810	   is op0003=8 & op11=0 & u0810		{ local x:2; x = u0810;	export x; }
+op2_w: [Rwi0809]   is op0003=8 & op1011=2 & Rwi0809	{ local x:2; read_w(x, Rwi0809); export x; }
+op2_w: [Rwi0809+]  is op0003=8 & op1011=3 & Rwi0809	{ local x:2; read_w(x, Rwi0809); Rwi0809 = Rwi0809 + 2; export x; }
 
-mem1631: addr is dpp3031=0 & off1629 [ addr = (DPP0<<14) | off1629; ]	{ local x:3 = zext(DPP0<<14) | off1629; export x; }
-mem1631: addr is dpp3031=1 & off1629 [ addr = (DPP1<<14) | off1629; ]	{ local x:3 = zext(DPP1<<14) | off1629; export x; }
-mem1631: addr is dpp3031=2 & off1629 [ addr = (DPP2<<14) | off1629; ]	{ local x:3 = zext(DPP2<<14) | off1629; export x; }
-mem1631: addr is dpp3031=3 & off1629 [ addr = (DPP3<<14) | off1629; ]	{ local x:3 = zext(DPP3<<14) | off1629; export x; }
-
-
-mem1631_w: mem1631 is mem1631 { export *:2 mem1631; }
-mem1631_b: mem1631 is mem1631 { export *:1 mem1631; }
+op2_b: Rbm0811	   is op0003=1 & Rbm0811	 	{ export Rbm0811; }
+op2_b: #u0810	   is op0003=9 & op11=0 & u0810		{ local x:1; x = u0810;	export x; }
+op2_b: [Rwi0809	   is op0003=9 & op1011=2 & Rwi0809	{ local x:1; read_b(x, Rwi0809); export x; }
+op2_b: [Rwi0809+]  is op0003=9 & op1011=3 & Rwi0809	{ local x:1; read_b(x, Rwi0809); Rwi0809 = Rwi0809 + 1; export x; }
 
 
-off1631: s1631 is s1631 { local x:2 = s1631; export x; } # TODO should use DPPx
+# mem: addr is dpp3031=0 & off1629 [ addr = (DPP0<<14) | off1629; ]	{ local x:3 = addr; export x; }
+# mem: addr is dpp3031=1 & off1629 [ addr = (DPP1<<14) | off1629; ]	{ local x:3 = addr; export x; }
+# mem: addr is dpp3031=2 & off1629 [ addr = (DPP2<<14) | off1629; ]	{ local x:3 = addr; export x; }
+# mem: addr is dpp3031=3 & off1629 [ addr = (DPP3<<14) | off1629; ]	{ local x:3 = addr; export x; }
+
+mem: addr is dpp3031=0 & off1629 [ addr = (DPP0<<14) | off1629; ]	{ local x:3 = (zext(DPP0) << 14) | off1629; export x; }
+mem: addr is dpp3031=1 & off1629 [ addr = (DPP1<<14) | off1629; ]	{ local x:3 = (zext(DPP1) << 14) | off1629; export x; }
+mem: addr is dpp3031=2 & off1629 [ addr = (DPP2<<14) | off1629; ]	{ local x:3 = (zext(DPP2) << 14) | off1629; export x; }
+mem: addr is dpp3031=3 & off1629 [ addr = (DPP3<<14) | off1629; ]	{ local x:3 = (zext(DPP3) << 14) | off1629; export x; }
+
+mem1631_w: mem is mem { export *:2 mem; }
+mem1631_b: mem is mem { export *:1 mem; }
+
+data1631_w: u1631  is u1631   { local tmp:2 = u1631; export tmp; }
+data1631_b: u1631  is u1631   { local tmp:1 = u1631:1; export tmp; }
+data1623: u1623   is u1623	  { local tmp:1 = u1623; export tmp; }
+data2431: u2431  is u2431	  { local tmp:1 = u2431; export tmp; }
+data1215_b: op1215  is op1215  { local tmp:1 = op1215; export tmp; }
+data1215_w: op1215  is op1215  { local tmp:2 = op1215; export tmp; }
+mask2431: op2431  is op2431  { local tmp:1 = op2431; export tmp; }
+mask1623: op1623 is op1623  { local tmp:1 = op1623; export tmp; }
+
+irang2: imm is u1213 [ imm = u1213 + 1; ] { local tmp:1 = imm; export tmp; }
+
+rel0815: addr is s0815 [ addr = inst_next + (2 * s0815); ]  { local tmp:3 = addr; export tmp;  }
+rel1623: addr is s1623 [ addr = inst_next + (2 * s1623); ] { local tmp:3 = addr; export tmp;  }
+
+trap7: u0915 is u0915 { local tmp:1 = u0915; export tmp; }
+pag: op1625 is op1625 { local tmp:1 = op1625; export tmp; }
+seg: op1623 is op1623 { local tmp:1 = op1623; export tmp; }
+caddr1631: addr is op1631 [ addr = inst_next & 0xff0000 | op1631; ] { local tmp:3 = addr; export tmp; }
+
+# it would be nice to maybe have "seg,caddr" resulting in "seg,caddr=>addr"
+# but ghidra does "offset addr,caddr", so not worth attempting "seg,u1631"
+segcaddr: addr is op0815 ; op1631 [ addr = (op0815 << 16) | op1631; ] { local tmp:3 = addr; export tmp; }
 
 
-# 8-bit addressing to GPRs
 
-r0815:  r0811   is r0811 & op1215=0xF            { export r0811;  }
-r0815:  r0811_0 is r0811_0 & op1215=0   & extR=0 { export r0811_0; }
-r0815:  ZEROS   is op0815=0x8E & ZEROS  & extR=0 { local x:2=0; export x;  }
-r0815:  ONES    is op0815=0x8F & ONES   & extR=0 { local x:2=0xFFFF; export x;  }
-r0815:  addr	is op0815 & op1215!=0xF & extR=0 & op1215!=0
-	[ addr = 0xFE00 | op0815 * 2; ]{ export *:2 addr; }	# SFR
-r0815:  addr	is op0815 & op1215!=0xF & extR!=0
-	[ addr = 0xF000 | op0815 * 2; ]{ export *:2 addr; }	# Extended SFR
+reg0815_w: sfr0815      is sfr0815  & op1215<0xF & extR=0  { export sfr0815; }
+reg0815_w: esfr0815     is esfr0815 & op1215<0xF & extR=1  { export esfr0815; }
+reg0815_w: r0811	is r0811    & op1215=0xF   	   { export r0811; }
 
-rb0815: rb0811  is rb0811 & op1215=0xF           { export rb0811; }
-#rb0815: r0811_0 is r0811_0 & op1215=0  & extR=0 { export r0811_0; } # TODO incorrect size
-rb0815: ZEROS   is op0815=0x8E & ZEROS  & extR=0 { local x:1=0; export x;  }
-rb0815: ONES    is op0815=0x8F & ONES   & extR=0 { local x:1=0xFF; export x;  }
-rb0815: addr	is op0815 & op1215!=0xF & extR=0
-	[ addr = 0xFE00 | op0815 * 2; ]{ export *:1 addr; }	# SFR
-rb0815: addr	is op0815 & op1215!=0xF & extR!=0
-	[ addr = 0xF000 | op0815 * 2; ]{ export *:1 addr; }	# Extended SFR
+reg0815_b: sfr0815      is sfr0815  & op1215<0xF & extR=0  { local tmp:1 = sfr0815:1; export tmp; }
+reg0815_b: esfr0815     is esfr0815 & op1215<0xF & extR=1  { local tmp:1 = esfr0815:1; export tmp; } 
+reg0815_b: rb0811	is rb0811   & op1215=0xF   	   { export rb0811; }
 
-# bit addressing
+qq0815: addr	is op15=0 & op0815 [ addr = 0xFD00 + 2 * op0815; ]				  { export *:2 addr; }
+qq0815: addr	is op15=1 & extR=0 & op0815 & op1215<0xF [ addr = 0xFF00 + 2 * (op0815 & 0x7F); ] { export *:2 addr; }
+qq0815: addr	is op15=1 & extR=1 & op0815 & op1215<0xF [ addr = 0xF100 + 2 * (op0815 & 0x7F); ] { export *:2 addr; }
+qq0815: r0811	is r0811 & op1215=0xF		  	   	  	   	       	 	  { export r0811; }
 
-bit0815:  r0811   is r0811 & op1215=0xF           { export r0811;  }
-bit0815:  r0811_0 is r0811_0 & op1215=0  & extR=0 { export r0811_0; }
-bit0815:  ZEROS   is op0815=0x8E & ZEROS & extR=0 { local x:2=0; export x;  }
-bit0815:  ONES    is op0815=0x8F & ONES  & extR=0 { local x:2=0xFFFF; export x;  }
-bit0815:  addr	  is op0814 & op15=1     & extR=0 
-	[ addr = 0xFF00 | op0814 * 2; ] { export *:2 addr; }	# SFR
-bit0815:  addr	  is op0814 & op15=1     & extR!=0
-	[ addr = 0xF100 | op0814 * 2; ] { export *:2 addr; }	# Extended SFR
-bit0815:  addr	  is op0814 & op15=0 
-	[ addr = 0xFD00 | op0814 * 2; ] { export *:2 addr; }	# RAM
+zz1623: addr	is op23=0 & op1623 [ addr = 0xFD00 + 2 * op1623; ] 		       	      	  { export *:2 addr; }
+zz1623: addr	is op23=1 & extR=0 & op1623 & op2023<0xF [ addr = 0xFF00 + 2 * (op1623 & 0x7F); ] { export *:2 addr; }
+zz1623: addr	is op23=1 & extR=1 & op1623 & op2023<0xF [ addr = 0xF100 + 2 * (op1623 & 0x7F); ] { export *:2 addr; }
+zz1623: r1619	is r1619 & op2023=0xF		  	   	  	   	       	 	  { export r1619; }
 
-
-bit1623:  r1619   is r1619 & op2023=0xF           { export r1619;  }
-bit1623:  r1619_0 is r1619_0 & op2023=0  & extR=0 { export r1619_0; }
-bit1623:  r1619_8 is r1619_8 & op2023=8  & extR=0 { export r1619_8; }
-bit1623:  ZEROS   is op1623=0x8E & ZEROS & extR=0 { local x:2=0; export x;  }
-bit1623:  ONES    is op1623=0x8F & ONES  & extR=0 { local x:2=0xFFFF; export x;  }
-bit1623:  addr	  is op1622 & op23=1     & extR=0 
-[ addr = 0xFF00 | op1622 * 2; ] { export *:2 addr; }	# SFR
-bit1623:  addr	  is op1622 & op23=1     & extR!=0
-[ addr = 0xF100 | op1622 * 2; ] { export *:2 addr; }	# Extended SFR
-bit1623:  addr	  is op1622 & op23=0
-[ addr = 0xFD00 | op1622 * 2; ] { export *:2 addr; }	# RAM
-
-
+# q2831:  op2831	is op2831  { local tmp:1 = op2831; export tmp; }
+# q0407: op0407	is op0407  { local tmp:1 = op0407; export tmp; }
+# z2427:  op2427	is op2427  { local tmp:1 = op2427; export tmp; }
 
 # condition codes (4-bit "cc")
 cc0407:"cc_UC"	is op0407=0x0 { local x:1 = 1; export x; }
@@ -292,15 +427,11 @@ cc1215:"cc_UGT"	is op1215=0xE { local x:1 = !($(PSW_Z) ^ $(PSW_C)); export x; }
 cc1215:"cc_ULE"	is op1215=0xF { local x:1 =  ($(PSW_Z) ^ $(PSW_C)); export x; }
 
 # condition codes (5-bit "xcc")
-cc1115:cc1215		is cc1215 & op11=0	{ export cc1215; }
-cc1115:"cc_nusr0"	is op1115=1 		{ local x:1 = !$(PSW_USR0); export x; }
-cc1115:"cc_nusr1"	is op1115=3 		{ local x:1 = !$(PSW_USR1); export x; }
-cc1115:"cc_usr0"	is op1115=5 		{ local x:1 =  $(PSW_USR0); export x; }
-cc1115:"cc_usr1"	is op1115=7 		{ local x:1 =  $(PSW_USR1); export x; }
-
-
-# extXX operations count
-irange: ir is u1213 [ ir = u1213 + 1; ] { local x:1 = ir; export x; }
+xcc1115: cc1215		is cc1215 & op11=0	{ export cc1215; }
+xcc1115: "cc_nusr0"	is op1115=1	{ local x:1 = !$(PSW_USR0); export x; }
+xcc1115: "cc_nusr1"	is op1115=3	{ local x:1 = !$(PSW_USR1); export x; }
+xcc1115: "cc_usr0"	is op1115=5	{ local x:1 =  $(PSW_USR0); export x; }
+xcc1115: "cc_usr1"	is op1115=7	{ local x:1 =  $(PSW_USR1); export x; }
 
 
 
@@ -315,17 +446,24 @@ macro add_w(a, b) {
 	setN(res);
 	a = res;
 }
-:add r1215, operand2_w is op0407=0x0 & r1215 & operand2_w {
-	add_w (r1215, operand2_w);
+# Rw n , #data3			08 n:0###
+# Rw n , [Rw i +]		08 n:11ii
+# Rw n , [Rw i ]		08 n:10ii
+# Rw n , Rw m			00 nm
+:add Rwn1215, op2_w is op0407=0x0 & Rwn1215 & op2_w {
+	add_w (Rwn1215, op2_w);
 }
-:add mem1631_w, r0815 is op0007=0x04 & r0815 ; mem1631_w {
-	add_w (mem1631_w, r0815);
+# mem , reg			04 RR MM MM
+:add mem1631_w, reg0815_w is op0007=0x04 & reg0815_w ; mem1631_w {
+	add_w (mem1631_w, reg0815_w);
 }
-:add r0815, mem1631_w is op0007=0x02 & r0815 ; mem1631_w {
-	add_w (r0815, mem1631_w);
+# reg , mem			02 RR MM MM
+:add reg0815_w, mem1631_w is op0007=0x02 & reg0815_w ; mem1631_w {
+	add_w (reg0815_w, mem1631_w);
 }
-:add r0815, #s1631 is op0007=0x06 & r0815 ; s1631 {
-	add_w (r0815, s1631:2);
+# reg , #data16			06 RR ## ##
+:add reg0815_w, #data1631_w is op0007=0x06 & reg0815_w ; data1631_w {
+	add_w (reg0815_w, data1631_w);
 }
 
 
@@ -338,17 +476,24 @@ macro add_b(a, b) {
 	setN(res);
 	a = res;
 }
-:addb rb1215, operand2_b is op0407=0x0 & rb1215 & operand2_b {
-	add_b(rb1215, operand2_b);
+# Rb n , #data3			09 n:0###
+# Rb n , [Rw i +]		09 n:11ii
+# Rb n , [Rw i ]		09 n:10ii
+# Rb n , Rb m			01 nm
+:addb Rbn1215, op2_b is op0407=0x0 & Rbn1215 & op2_b {
+	add_b(Rbn1215, op2_b);
 }
-:addb mem1631_b, rb0815 is op0007=0x05 & rb0815 ; mem1631_b {
-	add_b (mem1631_b, rb0815);
+# mem , reg			05 RR MM MM
+:addb mem1631_b, reg0815_b is op0007=0x05 & reg0815_b ; mem1631_b {
+	add_b (mem1631_b, reg0815_b);
 }
-:addb rb0815, mem1631_b is op0007=0x03 & rb0815 ; mem1631_b {
-	add_b (rb0815, mem1631_b);
+# reg , mem			03 RR MM MM
+:addb reg0815_b, mem1631_b is op0007=0x03 & reg0815_b ; mem1631_b {
+	add_b (reg0815_b, mem1631_b);
 }
-:addb rb0815, #s1623 is op0007=0x07 & rb0815 ; s1623 {
-	add_b (rb0815, s1623:1);
+# reg , #data8			07 RR ## xx
+:addb reg0815_b, #data1631_b is op0007=0x07 & reg0815_b ; data1631_b {
+	add_b (reg0815_b, data1631_b);
 }
 
 
@@ -363,17 +508,24 @@ macro addc_w(a,b) {
 	setN(res);
 	a = res;
 }
-:addc r1215, operand2_w is op0407=0x1 & r1215 & operand2_w {
-	addc_w (r1215, operand2_w);
+# Rw n , #data3			18 n:0###
+# Rw n , [Rw i +]		18 n:11ii
+# Rw n , [Rw i ]		18 n:10ii
+# Rw n , Rw m			10 nm
+:addc Rwn1215, op2_w is op0407=0x1 & Rwn1215 & op2_w {
+	addc_w (Rwn1215, op2_w);
 }
-:addc mem1631_w, r0815 is op0007=0x14 & r0815 ; mem1631_w {
-	addc_w (mem1631_w, r0815);
+# mem , reg			14 RR MM MM
+:addc mem1631_w, reg0815_w is op0007=0x14 & reg0815_w ; mem1631_w {
+	addc_w (mem1631_w, reg0815_w);
 }
-:addc r0815, mem1631_w is op0007=0x12 & r0815 ; mem1631_w {
-	addc_w (r0815, mem1631_w);
+# reg , mem			12 RR MM MM
+:addc reg0815_w, mem1631_w is op0007=0x12 & reg0815_w ; mem1631_w {
+	addc_w (reg0815_w, mem1631_w);
 }
-:addc r0815, #s1631 is op0007=0x16 & r0815 ; s1631 {
-	addc_w (r0815, s1631:2);
+# reg , #data16			16 RR ## ##
+:addc reg0815_w, #data1631_w is op0007=0x16 & reg0815_w ; data1631_w {
+	addc_w (reg0815_w, data1631_w);
 }
 
 
@@ -387,17 +539,24 @@ macro addc_b(a,b) {
 	setN(res);
 	a = res;
 }
-:addcb rb1215, operand2_b is op0407=0x1 & rb1215 & operand2_b {
-	addc_b(rb1215, operand2_b);
+# Rb n , #data3			19 n:0###
+# Rb n , [Rw i +]		19 n:11ii
+# Rb n , [Rw i ]		19 n:10ii
+# Rb n , Rb m			11 nm
+:addcb Rbn1215, op2_b is op0407=0x1 & Rbn1215 & op2_b {
+	addc_b(Rbn1215, op2_b);
 }
-:addcb mem1631_b, rb0815 is op0007=0x15 & rb0815 ; mem1631_b {
-	addc_b (mem1631_b, rb0815);
+# mem , reg			15 RR MM MM
+:addcb mem1631_b, reg0815_b is op0007=0x15 & reg0815_b ; mem1631_b {
+	addc_b (mem1631_b, reg0815_b);
 }
-:addcb rb0815, mem1631_b is op0007=0x13 & rb0815 ; mem1631_b {
-	addc_b (rb0815, mem1631_b);
+# reg , mem			13 RR MM MM
+:addcb reg0815_b, mem1631_b is op0007=0x13 & reg0815_b ; mem1631_b {
+	addc_b (reg0815_b, mem1631_b);
 }
-:addcb rb0815, #s1623 is op0007=0x17 & rb0815 ; s1623 {
-	addc_b (rb0815, s1623:1);
+# reg , #data8			17 RR ## xx
+:addcb reg0815_b, #data1631_b is op0007=0x17 & reg0815_b ; data1631_b {
+	addc_b (reg0815_b, data1631_b);
 }
 
 
@@ -422,17 +581,24 @@ macro and_w(a,b) {
 	a = a & b;
 	bit_operations_flags_w(a, b);
 }
-:and r1215, operand2_w is op0407=0x6 & r1215 & operand2_w {
-	and_w (r1215, operand2_w);
+# Rw n , #data3			68 n:0###
+# Rw n , [Rw i +]		68 n:11ii
+# Rw n , [Rw i ]		68 n:10ii
+# Rw n , Rw m			60 nm
+:and Rwn1215, op2_w is op0407=0x6 & Rwn1215 & op2_w {
+	and_w (Rwn1215, op2_w);
 }
-:and mem1631_w, r0815 is op0007=0x64 & r0815 ; mem1631_w {
-	and_w (mem1631_w, r0815);
+# mem , reg			64 RR MM MM
+:and mem1631_w, reg0815_w is op0007=0x64 & reg0815_w ; mem1631_w {
+	and_w (mem1631_w, reg0815_w);
 }
-:and r0815, mem1631_w is op0007=0x62 & r0815 ; mem1631_w {
-	and_w (r0815, mem1631_w);
+# reg , mem			62 RR MM MM
+:and reg0815_w, mem1631_w is op0007=0x62 & reg0815_w ; mem1631_w {
+	and_w (reg0815_w, mem1631_w);
 }
-:and r0815, #u1631 is op0007=0x66 & r0815 ; u1631 {
-	and_w (r0815, u1631:2);
+# reg , #data16			66 RR ## ##
+:and reg0815_w, #data1631_w is op0007=0x66 & reg0815_w ; data1631_w {
+	and_w (reg0815_w, data1631_w);
 }
 
 
@@ -441,17 +607,24 @@ macro and_b(a, b) {
 	a = a & b;
 	bit_operations_flags_b(a, b);
 }
-:andb rb1215, operand2_b is op0407=0x6 & rb1215 & operand2_b {
-	and_b(rb1215, operand2_b);
+# Rb n , #data3			69 n:0###
+# Rb n , [Rw i +]		69 n:11ii
+# Rb n , [Rw i ]		69 n:10ii
+# Rb n , Rb m			61 nm
+:andb Rbn1215, op2_b is op0407=0x6 & Rbn1215 & op2_b {
+	and_b(Rbn1215, op2_b);
 }
-:andb mem1631_b, rb0815 is op0007=0x65 & rb0815 ; mem1631_b {
-	and_b (mem1631_b, rb0815);
+# mem , reg			65 RR MM MM
+:andb mem1631_b, reg0815_b is op0007=0x65 & reg0815_b ; mem1631_b {
+	and_b (mem1631_b, reg0815_b);
 }
-:andb rb0815, mem1631_b is op0007=0x63 & rb0815 ; mem1631_b {
-	add_b (rb0815, mem1631_b);
+# reg , mem			63 RR MM MM
+:andb reg0815_b, mem1631_b is op0007=0x63 & reg0815_b ; mem1631_b {
+	add_b (reg0815_b, mem1631_b);
 }
-:andb rb0815, #u1623 is op0007=0x67 & rb0815 ; u1623 {
-	and_b (rb0815, u1623:1);
+# reg , #data8			67 RR ## xx
+:andb reg0815_b, #data1631_b is op0007=0x67 & reg0815_b ; data1631_b {
+	and_b (reg0815_b, data1631_b);
 }
 
 
@@ -465,16 +638,18 @@ macro ashr_w(a, b) {
 	setN(res);
 	a = res;
 }
-:ashr r0811, #u1215 is op0007=0xBC & r0811 & u1215 {
-	ashr_w (r0811, u1215:1);
+# Rw n , #data4			BC #n
+:ashr Rwn0811, #data1215_w is op0007=0xBC & Rwn0811 & data1215_w {
+	ashr_w (Rwn0811, data1215_w);
 }
-:ashr r1215, r0811 is op0007=0xAC & r0811 & r1215 {
-	local shift = r0811 & 0xF;
-	ashr_w (r1215, shift);
+# Rw n , Rw m			AC nm
+:ashr Rwn1215, Rwm0811 is op0007=0xAC & Rwm0811 & Rwn1215 {
+	local shift = Rwm0811 & 0xF;
+	ashr_w (Rwn1215, shift);
 }
 
-
-:atomic #irange is op0007=0xD1 & op0811=0 & irange & op1415=0 {
+# #irang2			D1 :00##-0
+:atomic #irang2 is op0007=0xD1 & op0811=0 & irang2 & op1415=0 {
 	TODO();  # program counter
 }
 
@@ -494,102 +669,116 @@ macro bitop_flags2(op1, op2) {
 	setC(op1 & op2);
 	$(PSW_N) = (op1 ^ op2) != 0;
 }
-:band bit1623^"."^op2427, bit0815^"."^op2831 is op0007=0x6A & bit0815 ; bit1623 & op2427 & op2831 {
-	local b1 = (bit1623 >> op2427) & 1;
-	local b2 = (bit0815 >> op2831) & 1;
+# bitaddr Z.z , bitaddr Q.q	6A QQ ZZ qz
+:band zz1623^"."^z2427, qq0815^"."^q2831 is op0007=0x6A & qq0815 ; zz1623 & z2427 & q2831 {
+	local b1 = (zz1623 >> z2427) & 1;
+	local b2 = (qq0815 >> q2831) & 1;
 	bitop_flags2(b1, b2);
-	local mask:2 = 1 << op2427;
-	bit1623 = bit1623 & ((b2 << op2427) | ~mask);
+	local mask:2 = 1 << z2427;
+	zz1623 = zz1623 & ((b2 << z2427) | ~mask);
 }
-:bclr bit0815^"."^op0407 is op0003=0xE & op0407 & bit0815 {
-	local b1 = (bit0815 >> op0407) & 1;
+# bitaddr Q.q			qE QQ
+:bclr qq0815^"."^q0407 is op0003=0xE & q0407 & qq0815 {
+	local b1 = (qq0815 >> q0407) & 1;
 	bitop_flags1(b1);
-	bit0815 = bit0815 & ~(1 << op0407);
+	qq0815 = qq0815 & ~(1 << q0407);
 }
-:bcmp bit1623^"."^op2427, bit0815^"."^op2831 is op0007=0x2A & bit0815 ; bit1623 & op2427 & op2831 {
-	local b1 = (bit1623 >> op2427) & 1;
-	local b2 = (bit0815 >> op2831) & 1;
+# bitaddr Z.z , bitaddr Q.q	2A QQ ZZ qz
+:bcmp zz1623^"."^z2427, qq0815^"."^q2831 is op0007=0x2A & qq0815 ; zz1623 & z2427 & q2831 {
+	local b1 = (zz1623 >> z2427) & 1;
+	local b2 = (qq0815 >> q2831) & 1;
 	bitop_flags2(b1, b2);
 }
-:bfldh bit0815, #u2431, #u1623 is op0007=0x1A & bit0815; u1623 & u2431 {
-	local mask:2 = u2431 << 8;
-	local data:2 = u1623 << 8;
-	local tmp:2 = (bit0815 & ~mask) | data;
+# bitoff Q , #mask8 , #data8	1A QQ ## @@
+:bfldh qq0815, #mask2431, #data1623 is op0007=0x1A & qq0815 ; data1623 & mask2431 {
+	local mask:2 = zext(mask2431) << 8;
+	local data:2 = zext(data1623) << 8;
+	local tmp:2 = (qq0815 & ~mask) | data;
 	bitop_flags1(tmp);
-	bit0815 = tmp;
+	qq0815 = tmp;
 }
-:bfldl bit0815, #u2431, #u1623 is op0007=0x0A & bit0815; u1623 & u2431 {
-	local mask:2 = u2431;
-	local data:2 = u1623;
-	local tmp:2 = (bit0815 & ~mask) | data;
+# bitoff Q , #mask8 , #data8	0A QQ @@ ##
+:bfldl qq0815, #mask1623, #data2431 is op0007=0x0A & qq0815 ; data2431 & mask1623 {
+	local mask:2 = zext(mask1623);
+	local data:2 = zext(data2431);
+	local tmp:2 = (qq0815 & ~mask) | data;
 	bitop_flags1(tmp);
-	bit0815 = tmp;
+	qq0815 = tmp;
 }
-:bmov bit1623^"."^op2427, bit0815^"."^op2831 is op0007=0x4A & bit0815 ; bit1623 & op2427 & op2831 {
-	local b2 = (bit0815 >> op2831) & 1;
+# bitaddr Z.z , bitaddr Q.q	4A QQ ZZ qz
+:bmov zz1623^"."^z2427, qq0815^"."^q2831 is op0007=0x4A & qq0815 ; zz1623 & z2427 & q2831 {
+	local b2 = (qq0815 >> q2831) & 1;
 	bitop_flags1(b2);
-	bit1623 = (bit1623 & ~(1 << op2427)) | (b2 << op2427);
+	zz1623 = (zz1623 & ~(1 << z2427)) | (b2 << z2427);
 }
-:bmovn bit1623^"."^op2427, bit0815^"."^op2831 is op0007=0x3A & bit0815 ; bit1623 & op2427 & op2831 {
-	local b2 = (bit0815 >> op2831) & 1;
+# bitaddr Z.z , bitaddr Q.q	3A QQ ZZ qz
+:bmovn zz1623^"."^z2427, qq0815^"."^q2831 is op0007=0x3A & qq0815 ; zz1623 & z2427 & q2831 {
+	local b2 = (qq0815 >> q2831) & 1;
 	bitop_flags1(b2);
 	b2 = b2 ^ 1;
-	bit1623 = (bit1623 & ~(1 << op2427)) | (b2 << op2427);
+	zz1623 = (zz1623 & ~(1 << z2427)) | (b2 << z2427);
 }
-:bor bit1623^"."^op2427, bit0815^"."^op2831 is op0007=0x5A & bit0815 ; bit1623 & op2427 & op2831 {
-	local b1 = (bit1623 >> op2427) & 1;
-	local b2 = (bit0815 >> op2831) & 1;
+# bitaddr Z.z , bitaddr Q.q	5A QQ ZZ qz
+:bor zz1623^"."^z2427, qq0815^"."^q2831 is op0007=0x5A & qq0815 ; zz1623 & z2427 & q2831 {
+	local b1 = (zz1623 >> z2427) & 1;
+	local b2 = (qq0815 >> q2831) & 1;
 	bitop_flags2(b1, b2);
-	bit1623 = bit1623 | (b2 << op2427);
+	zz1623 = zz1623 | (b2 << z2427);
 }
-:bset bit0815^"."^op0407 is op0003=0xF & op0407 & bit0815 {
-	local b1 = (bit0815 >> op0407) & 1;
+# bitaddr Q.q			qF QQ
+:bset qq0815^"."^q0407 is op0003=0xF & q0407 & qq0815 {
+	local b1 = (qq0815 >> q0407) & 1;
 	bitop_flags1(b1);
-	bit0815 = bit0815 | (1 << op0407);
+	qq0815 = qq0815 | (1 << q0407);
 }
-:bxor bit1623^"."^op2427, bit0815^"."^op2831 is op0007=0x7A & bit0815 ; bit1623 & op2427 & op2831 {
-	local b1 = (bit1623 >> op2427) & 1;
-	local b2 = (bit0815 >> op2831) & 1;
+# bitaddr Z.z , bitaddr Q.q	7A QQ ZZ qz
+:bxor zz1623^"."^z2427, qq0815^"."^q2831 is op0007=0x7A & qq0815 ; zz1623 & z2427 & q2831 {
+	local b1 = (zz1623 >> z2427) & 1;
+	local b2 = (qq0815 >> q2831) & 1;
 	bitop_flags2(b1, b2);
-	bit1623 = bit1623 ^ (b2 << op2427);
+	zz1623 = zz1623 ^ (b2 << z2427);
 }
 
 
-
-:calla cc1215, mem1631 is op0007=0xCA & cc1215; mem1631 {
+# cc , caddr			CA c0 MM MM
+:calla cc1215, caddr1631 is op0007=0xCA & cc1215; caddr1631 {
 	if (cc1215 == 0) goto inst_next;
-	Stack = Stack - 2;
-	local ret:2 = inst_next;
-	*:2 Stack = ret;
-	IP = mem1631;
-	call mem1631;
+	SP = SP - 2;
+	local ret:2 = 0xffff & inst_next;
+	write_w(SP, ret);
+	IP = caddr1631;
+	call caddr1631;
 }
 
-:calli cc1215, [r0811] is op0007=0xAB & r0811 & cc1215 {
+# cc , [Rw n ]			AB cn
+:calli cc1215, [Rwn0811] is op0007=0xAB & Rwn0811 & cc1215 {
 	if (cc1215 == 0) goto inst_next;
-	Stack = Stack - 2;
-	local ret:2 = inst_next;
-	*:2 Stack = ret;
-	local addr:3 = (inst_next & 0xFF0000) | zext(r0811);
+	SP = SP - 2;
+	local ret:2 = 0xffff & inst_next;
+	write_w(SP, ret);
+	local addr:3 = (inst_next & 0xFF0000) | zext(Rwn0811);
 	IP = addr;
 	call [addr];
 }
 
-:callr addr is op0007=0xBB & s0815 [ addr = inst_start + s0815*2; ] {
-	Stack = Stack - 2;
-	local ret:2 = inst_next;
-	*:2 Stack = ret;
-	IP = addr;
+# rel				BB rr
+:callr rel0815 is op0007=0xBB & rel0815 {
+	SP = SP - 2;
+	local ret:2 = 0xffff & inst_next;
+	write_w(SP, ret);
+	IP = rel0815;
 	call [IP];
 }
 
-:calls addr is op0007=0xDA & u0815 ; u1631 [ addr = (u0815 << 16) | u1631; ] {
-	Stack = Stack - 4;
-	*:2 (Stack + 2) = CSP;
-	local ret:2 = inst_next;
-	*:2 Stack = ret;	# save current IP
+# seg , caddr			DA SS MM MM
+:calls segcaddr is op0007=0xDA ... & segcaddr {
+	SP = SP - 2;
+	write_w(SP, CSP);
+	SP = SP - 2;
+	local ret:2 = 0xffff & inst_next;
+	write_w(SP, ret);
 	# TODO if (CPUCON1.SGTDIS) CSP = zext(u0815);
-	IP = addr;
+	IP = segcaddr;
 	call [IP];
 }
 
@@ -604,14 +793,20 @@ macro cmp_w(a, b) {
 	setC(a < b);
 	setN(res);
 }
-:cmp r1215, operand2_w is op0407=0x4 & r1215 & operand2_w {
-	cmp_w (r1215, operand2_w);
+# Rw n , #data3			48 n:0###
+# Rw n , [Rw i +]		48 n:11ii
+# Rw n , [Rw i ]		48 n:10ii
+# Rw n , Rw m			40 nm
+:cmp Rwn1215, op2_w is op0407=0x4 & Rwn1215 & op2_w {
+	cmp_w (Rwn1215, op2_w);
 }
-:cmp r0815, mem1631_w is op0007=0x42 & r0815 ; mem1631_w {
-	cmp_w (r0815, mem1631_w);
+# reg , mem			42 RR MM MM
+:cmp reg0815_w, mem1631_w is op0007=0x42 & reg0815_w ; mem1631_w {
+	cmp_w (reg0815_w, mem1631_w);
 }
-:cmp r0815, #s1631 is op0007=0x46 & r0815 ; s1631 {
-	cmp_w (r0815, s1631:2);
+# reg , #data16			46 RR ## ##
+:cmp reg0815_w, #data1631_w is op0007=0x46 & reg0815_w ; data1631_w {
+	cmp_w (reg0815_w, data1631_w);
 }
 
 
@@ -623,14 +818,20 @@ macro cmp_b(a, b) {
 	setC(a < b);
 	setN(res);
 }
-:cmpb rb1215, operand2_b is op0407=0x4 & rb1215 & operand2_b {
-	cmp_b(rb1215, operand2_b);
+# Rb n , #data3			49 n:0###
+# Rb n , [Rw i +]		49 n:11ii
+# Rb n , [Rw i ]		49 n:10ii
+# Rb n , Rb m  			41 nm
+:cmpb Rbn1215, op2_b is op0407=0x4 & Rbn1215 & op2_b {
+	cmp_b(Rbn1215, op2_b);
 }
-:cmpb rb0815, mem1631_b is op0007=0x43 & rb0815 ; mem1631_b {
-	cmp_b (rb0815, mem1631_b);
+# reg , mem			43 RR MM MM
+:cmpb reg0815_b, mem1631_b is op0007=0x43 & reg0815_b ; mem1631_b {
+	cmp_b (reg0815_b, mem1631_b);
 }
-:cmpb rb0815, #s1623 is op0007=0x47 & rb0815 ; s1623 {
-	cmp_b (rb0815, s1623:1);
+# reg , #data8			47 RR ## xx
+:cmpb reg0815_b, #data1631_b is op0007=0x47 & reg0815_b ; data1631_b {
+	cmp_b (reg0815_b, data1631_b);
 }
 
 
@@ -643,39 +844,52 @@ cmp_i_d:"d1" is op0407=0xA { local inc:2 = -1; export inc; }
 cmp_i_d:"d2" is op0407=0xB { local inc:2 = -2; export inc; }
 cmp_i_d:"i1" is op0407=0x8 { local inc:2 =  1; export inc; }
 cmp_i_d:"i2" is op0407=0x9 { local inc:2 =  2; export inc; }
-
-:cmp^cmp_i_d r0811, #s1631 is op0003=0x6 & cmp_i_d & r0811 & op1215=0xF ; s1631 {
-	cmp_inc_dec (r0811, s1631:2, cmp_i_d);
+# Rw n , #data16	     	A6 Fn ## ##
+# Rw n , #data16		B6 Fn ## ##
+# Rw n , #data16		86 Fn ## ##
+# Rw n , #data16		96 Fn ## ##
+:cmp^cmp_i_d Rwn0811, #data1631_w is op0003=0x6 & cmp_i_d & Rwn0811 & op1215=0xF ; data1631_w {
+	cmp_inc_dec (Rwn0811, data1631_w, cmp_i_d);
 }
-:cmp^cmp_i_d r0811, #s1215 is op0003=0x0 & cmp_i_d & r0811 & s1215 {
-	cmp_inc_dec (r0811, s1215:2, cmp_i_d);
+# Rw n , #data4			A0 #n
+# Rw n , #data4			B0 #n
+# Rw n , #data4			80 #n
+# Rw n , #data4			90 #n
+:cmp^cmp_i_d Rwn0811, #data1215_w is op0003=0x0 & cmp_i_d & Rwn0811 & data1215_w {
+	cmp_inc_dec (Rwn0811, data1215_w, cmp_i_d);
 }
-:cmp^cmp_i_d r0811, mem1631_w is op0003=0x2 & cmp_i_d & r0811 & op1215=0xF ; mem1631_w {
-	cmp_inc_dec (r0811, mem1631_w, cmp_i_d);
+# Rw n , mem			A2 Fn MM MM
+# Rw n , mem			B2 Fn MM MM
+# Rw n , mem			82 Fn MM MM
+# Rw n , mem			92 Fn MM MM
+:cmp^cmp_i_d Rwn0811, mem1631_w is op0003=0x2 & cmp_i_d & Rwn0811 & op1215=0xF ; mem1631_w {
+	cmp_inc_dec (Rwn0811, mem1631_w, cmp_i_d);
 }
 
-
-:cpl r1215 is op0007=0x91 & op0811=0 & r1215 {
-	local res = ~ r1215;
+# Rw n				91 n0
+:cpl Rwn1215 is op0007=0x91 & op0811=0 & Rwn1215 {
+	local res = ~ Rwn1215;
 	setE_w(res);
 	setNotZ(res);
 	setV(0:1);
 	setC(0:1);
 	setN(res);
-	r1215 = res;
+	Rwn1215 = res;
 }
-:cplb rb1215 is op0007=0xB1 & op0811=0 & rb1215 {
-	local res = ~ rb1215;
+# Rb n				B1 n0
+:cplb Rbn1215 is op0007=0xB1 & op0811=0 & Rbn1215 {
+	local res = ~ Rbn1215;
 	setE_b(res);
 	setNotZ(res);
 	setV(0:1);
 	setC(0:1);
 	setN(res);
-	rb1215 = res;
+	Rbn1215 = res;
 }
 
 
 define pcodeop __watchdog_disable;
+#				A5 5A A5 A5
 :diswdt is op0007=0xA5 & op0815=0x5A ; op1631=0xA5A5 {
 	__watchdog_disable();
 }
@@ -687,36 +901,41 @@ macro div_flags(divisor, quotent) {
 	setC(0:1);
 	setN(quotent);
 }
-:div r0811 is op0007=0x4B & r0811 {
+
+# Rw n				4B nn
+:div Rwn1215 is op0007=0x4B & Rwn1215 & op1215=op0811 {
 	local dividend:2 = MDL;
-	local divisor:2 = r0811;
+	local divisor:2 = Rwn1215;
 	local quotent:2 = dividend s/ divisor;
 	local remainder:2 = dividend s% divisor;
 	div_flags(divisor, quotent);
 	MDL = quotent;
 	MDH = remainder;
 }
-:divl r0811 is op0007=0x6B & r0811 {
-	local dividend:4 = (zext(MDH) << 16)  | zext(MDL);
-	local divisor:4 = sext(r0811);
+# Rw n				6B nn
+:divl Rwn1215 is op0007=0x6B & Rwn1215 & op1215=op0811 {
+	local dividend:4 = (sext(MDH) << 16)  | zext(MDL);
+	local divisor:4 = sext(Rwn1215);
 	local quotent:4 = dividend s/ divisor;
 	local remainder:4 = dividend s% divisor;
 	div_flags(divisor, quotent);
 	MDL = quotent[0,16];
 	MDH = remainder[0,16];
 }
-:divlu r0811 is op0007=0x7B & r0811 {
+# Rw n				7B nn
+:divlu Rwn1215 is op0007=0x7B & Rwn1215 & op1215=op0811 {
 	local dividend:4 = (zext(MDH) << 16)  | zext(MDL);
-	local divisor:4 = zext(r0811);
+	local divisor:4 = zext(Rwn1215);
 	local quotent:4 = dividend / divisor;
 	local remainder:4 = dividend % divisor;
 	div_flags(divisor, quotent);
 	MDL = quotent[0,16];
 	MDH = remainder[0,16];
 }
-:divu r0811 is op0007=0x5B & r0811 {
+# Rw n				5B nn
+:divu Rwn1215 is op0007=0x5B & Rwn1215 & op1215=op0811 {
 	local dividend:2 = MDL;
-	local divisor:2 = r0811;
+	local divisor:2 = Rwn1215;
 	local quotent:2 = dividend / divisor;
 	local remainder:2 = dividend % divisor;
 	div_flags(divisor, quotent);
@@ -726,11 +945,13 @@ macro div_flags(divisor, quotent) {
 
 
 define pcodeop __end_of_initialization;
+#				B5 4A B5 B5
 :eint is op0007=0xB5 & op0815=0x4A ; op1631=0xB5B5 {
 	__end_of_initialization();
 }
 
 define pcodeop __watchdog_enable;
+#				85 7a 85 85
 :enwdt is op0007=0x85 & op0815=0x7A ; op1631=0x8585 {
 	__watchdog_enable();
 }
@@ -764,103 +985,111 @@ macro ext_sr(segment, irange) {
 	delayslot(irange);
 #	extP = 0; extR = 0;
 }
-
-:extp #u1627, #irange is op0007=0xD7 & irange & op1415=1 ; u1627 & op2831=0 {
-	ext_p(u1627, irange);
+# #pag , #irang2		D7 :01##-0 pp 0:00pp
+:extp #pag, #irang2 is op0007=0xD7 & irang2 & op1415=1 ; pag & op2831=0 {
+	ext_p(pag, irang2);
 }
-:extp r0811, #irange is op0007=0xDC & r0811 & irange & op1415=1 {
-	ext_p(r0811, irange);
+# Rw m , #irang2		DC :01##-m
+:extp Rwm0811, #irang2 is op0007=0xDC & Rwm0811 & irang2 & op1415=1 {
+	ext_p(Rwm0811, irang2);
 }
-:extpr #u1627, #irange is op0007=0xD7 & irange & op1415=3 ; u1627 & op2831=0 {
-	ext_pr(u1627, irange);
+# #pag , #irang2		D7 :01##-0 pp 0:00pp
+:extpr #pag, #irang2 is op0007=0xD7 & irang2 & op1415=3 ; pag & op2831=0 {
+	ext_pr(pag, irang2);
 }
-:extpr r0811, #irange is op0007=0xDC & r0811 & irange & op1415=3 {
-	ext_pr(r0811, irange);
+# Rw m , #irang2		DC :11##-m
+:extpr Rwm0811, #irang2 is op0007=0xDC & Rwm0811 & irang2 & op1415=3 {
+	ext_pr(Rwm0811, irang2);
 }
-
-:extr #irange is op0007=0xD1 & op0811=0 & irange & op1415=2 {
-	ext_r(irange);
-}
-
-:exts #u1623, #irange is op0007=0xD7 & irange & op1415=0 ; u1623 & op2431=0 {
-	ext_s(u1623, irange);
-}
-:exts r0811, #irange is op0007=0xDC & r0811 & irange & op1415=0 {
-	ext_s(r0811, irange);
+# #irang2			D1 :10##-0
+:extr #irang2 is op0007=0xD1 & op0811=0 & irang2 & op1415=2 {
+	ext_r(irang2);
 }
 
-:extsr #u1623, #irange is op0007=0xD7 & irange & op1415=2 ; u1623 & op2431=0 {
-	ext_sr(u1623, irange);
+# #seg , #irang2		D7 :00##-0 SS 00
+:exts #seg, #irang2 is op0007=0xD7 & irang2 & op1415=0 ; seg & op2431=0 {
+	ext_s(seg, irang2);
 }
-:extsr r0811, #irange is op0007=0xDC & r0811 & irange & op1415=2 {
-	ext_sr(r0811, irange);
+# Rw m , #irang2		DC :00##-m
+:exts Rwm0811, #irang2 is op0007=0xDC & Rwm0811 & irang2 & op1415=0 {
+	ext_s(Rwm0811, irang2);
+}
+
+# #seg , #irang2		D7 :10##-0 SS 00
+:extsr #seg, #irang2 is op0007=0xD7 & irang2 & op1415=2 ; seg & op2431=0 {
+	ext_sr(seg, irang2);
+}
+# Rw m , #irang2		DC :10##-m
+:extsr Rwm0811, #irang2 is op0007=0xDC & Rwm0811 & irang2 & op1415=2 {
+	ext_sr(Rwm0811, irang2);
 }
 
 
 define pcodeop __idle;
+#				87 78 87 87
 :idle is op0007=0x87 & op0815=0x78 ; op1631=0x8787 {
 	__idle();
 }
 
 
-:jb r0815^"."^op2831, addr is op0007=0x8A & r0815 ; s1623 & op2427=0 & op2831
-[ addr = inst_next + s1623 * 2; ] {
-	local tmp:2 = r0815 & (1 << op2831);
+# bitaddr Q.q , rel		8A QQ rr q0
+:jb qq0815^"."^q2831, rel1623 is op0007=0x8A & qq0815 ; rel1623 & q2831 & op2427=0 {
+	local tmp:2 = qq0815 & (1 << q2831);
 	if (tmp == 0) goto inst_next;
-	IP = addr;
+	IP = rel1623;
 	goto [IP];
 }
 
-:jbc r0815^"."^op2831, addr is op0007=0xAA & r0815 ; s1623 & op2427=0 & op2831
-[ addr = inst_next + s1623 * 2; ] {
-	local tmp:2 = r0815 & (1 << op2831);
+# bitaddr Q.q , rel		AA QQ rr q0
+:jbc qq0815^"."^q2831, rel1623 is op0007=0xAA & qq0815 ; rel1623 & q2831 & op2427=0 {
+	local tmp:2 = qq0815 & (1 << q2831);
 	if (tmp == 0) goto inst_next;
-	r0815 = r0815 & ~(1 << op2831);
-	IP = addr;
+	qq0815 = qq0815 & ~(1 << q2831);
+	IP = rel1623;
 	goto [IP];
 }
 
-:jmpa cc1115, addr is op0007=0xEA & cc1115; op1631 
-[ addr = (inst_next & 0xFF0000) | op1631; ]
-{
-	if (cc1115 == 0) goto inst_next;
-	IP = addr;
+# xcc , caddr			EA c0 MM MM
+:jmpa xcc1115, caddr1631 is op0007=0xEA & xcc1115; caddr1631 { 
+	if (xcc1115 == 0) goto inst_next;
+	IP = caddr1631;
 	goto [IP];
 }
 
-:jmpi cc1215, [r0811] is op0007=0x9C & r0811 & cc1215 {
+# cc , [Rw n ]			9C cn
+:jmpi cc1215, [Rwn0811] is op0007=0x9C & Rwn0811 & cc1215 {
 	if (cc1215 == 0) goto inst_next;
-	IP = (inst_next & 0xFF0000) | zext(r0811);
+	IP = (inst_next & 0xFF0000) | zext(Rwn0811);
 	goto [IP];
 }
 
-:jmpr cc0407, addr is op0003=0xD & cc0407 & s0815
-[ addr = inst_next + s0815 * 2; ] {
+# cc , rel			cD rr
+:jmpr cc0407, rel0815 is op0003=0xD & cc0407 & rel0815 {
 	if (cc0407 == 0) goto inst_next;
-	IP = addr;
+	IP = rel0815;
 	goto [IP];
 }
 
-:jmps addr is op0007=0xFA & op0815 ; op1631 
-[ addr = (op0815 << 16) | op1631; ] {
-	IP = addr;
+# seg , caddr			FA SS MM MM
+:jmps segcaddr is op0007=0xFA ... & segcaddr {
+	IP = segcaddr;
 	goto [IP];
 }
 
-:jnb r0815^"."^op2831, addr is op0007=0x9A & r0815; s1623 & op2427=0 & op2831
-[ addr = inst_next + s1623 * 2; ] {
-	local tmp:2 = r0815 & (1 << op2831);
+# bitaddr Q.q , rel		9A QQ rr q0
+:jnb qq0815^"."^q2831, rel1623 is op0007=0x9A & qq0815 ; rel1623 & op2427=0 & q2831 {
+	local tmp:2 = qq0815 & (1 << q2831);
 	if (tmp != 0) goto inst_next;
-	IP = addr;
+	IP = rel1623;
 	goto [IP];
 }
 
-:jnbs r0815 "bit", addr is op0007=0xBA & r0815; s1623 & op2427=0 & op2831
-[ addr = inst_next + s1623 * 2; ] {
-	local tmp:2 = r0815 & (1 << op2831);
+# bitaddr Q.q , rel		BA QQ rr q0
+:jnbs qq0815^"."^q2831, rel1623 is op0007=0xBA & qq0815 ; rel1623 & op2427=0 & q2831 {
+	local tmp:2 = qq0815 & (1 << q2831);
 	if (tmp != 0) goto inst_next;
-	r0815 = r0815 | (1 << op2831);
-	IP = addr;
+	qq0815 = qq0815 | (1 << q2831);
+	IP = rel1623;
 	goto [IP];
 }
 
@@ -871,89 +1100,109 @@ macro mov_w_flags(b) {
 	setN(b);
 }
 macro mov_w (a,b) {
-	a = b; mov_w_flags(b);
+	a = b;
+	mov_w_flags(b);
 }
-:mov r0811, #s1215 is op0007=0xE0 & r0811 & s1215 {
-	mov_w(r0811, s1215:2);
+# Rw n , #data4			E0 #n
+:mov Rwn0811, #data1215_w is op0007=0xE0 & Rwn0811 & data1215_w {
+	mov_w(Rwn0811, data1215_w);
 }
-:mov r1215, r0811 is op0007=0xF0 & r0811 & r1215 {
-	mov_w(r1215, r0811);
+# Rw n , Rw m			F0 nm
+:mov Rwn1215, Rwm0811 is op0007=0xF0 & Rwm0811 & Rwn1215 {
+	mov_w(Rwn1215, Rwm0811);
 }
-:mov r1215, [r0811 + #off1631] is op0007=0xD4 & r0811 & r1215 ; off1631 {
-	local tmp:2; read_w(tmp, r0811 + off1631);
-	mov_w(r1215, tmp);
-}
-:mov r1215, [r0811+] is op0007=0x98 & r0811 & r1215 {
-	local tmp:2; read_w(tmp, r0811);
-	mov_w(r1215, tmp);
-	r0811 = r0811 + 2;
-}
-:mov r1215, [r0811] is op0007=0xA8 & r0811 & r1215 {
-	local tmp:2; read_w(tmp, r0811);
-	mov_w(r1215, tmp);
-}
-:mov [-r0811], r1215 is op0007=0x88 & r0811 & r1215 {
-	r0811 = r0811 - 2;
+# Rw n , [Rw m +#data16]	D4 nm ## ##
+:mov Rwn1215, [Rwm0811 + #data1631_w] is op0007=0xD4 & Rwm0811 & Rwn1215 ; data1631_w {
 	local tmp:2;
-	mov_w(tmp, r1215);
-	write_w(r0811, tmp);
+	read_w(tmp, Rwm0811 + data1631_w);
+	mov_w(Rwn1215, tmp);
 }
-:mov [r0811 + #off1631], r1215 is op0007=0xC4 & r0811 & r1215 ; off1631 {
+# Rw n , [Rw m +]		98 nm
+:mov Rwn1215, [Rwm0811+] is op0007=0x98 & Rwm0811 & Rwn1215 {
 	local tmp:2;
-	mov_w(tmp, r1215);
-	write_w(r0811 + off1631, tmp);
+	read_w(tmp, Rwm0811);
+	mov_w(Rwn1215, tmp);
+	Rwm0811 = Rwm0811 + 2;
 }
-:mov [r0811], r1215 is op0007=0xB8 & r0811 & r1215 {
+# Rw n , [Rw m ]		A8 nm
+:mov Rwn1215, [Rwm0811] is op0007=0xA8 & Rwm0811 & Rwn1215 {
 	local tmp:2;
-	mov_w(tmp, r1215);
-	write_w(r0811, tmp);
+	read_w(tmp, Rwm0811);
+	mov_w(Rwn1215, tmp);
 }
-:mov [r0811+], [r1215] is op0007=0xD8 & r0811 & r1215 {
-	local tmp1:2; local tmp2:2;
-	read_w(tmp2, r1215);
+# [-Rw m ] , Rw n		88 nm
+:mov [-Rwm0811], Rwn1215 is op0007=0x88 & Rwm0811 & Rwn1215 {
+	Rwm0811 = Rwm0811 - 2;
+	local tmp:2;
+	mov_w(tmp, Rwn1215);
+	write_w(Rwm0811, tmp);
+}
+# [Rw m +#data16] , Rw n	C4 nm ## ##
+:mov [Rwm0811 + #data1631_w], Rwn1215 is op0007=0xC4 & Rwm0811 & Rwn1215 ; data1631_w {
+	local tmp:2;
+	mov_w(tmp, Rwn1215);
+	write_w(Rwm0811 + data1631_w, tmp);
+}
+# [Rw m ] , Rw n		B8 nm
+:mov [Rwm0811], Rwn1215 is op0007=0xB8 & Rwm0811 & Rwn1215 {
+	local tmp:2;
+	mov_w(tmp, Rwn1215);
+	write_w(Rwm0811, tmp);
+}
+# [Rw n +] , [Rw m ]		D8 nm
+:mov [Rwm0811+], [Rwn1215] is op0007=0xD8 & Rwm0811 & Rwn1215 {
+	local tmp1:2;
+	local tmp2:2;
+	read_w(tmp2, Rwn1215);
 	mov_w(tmp1, tmp2);
-	write_w(r0811, tmp1);
-	r0811 = r0811 + 2;
+	write_w(Rwm0811, tmp1);
+	Rwm0811 = Rwm0811 + 2;
 }
-:mov [r0811], [r1215+] is op0007=0xE8 & r0811 & r1215 {
-	local tmp1:2; local tmp2:2;
-	read_w(tmp2, r1215);
+# [Rw n ] , [Rw m +]		E8 nm
+:mov [Rwm0811], [Rwn1215+] is op0007=0xE8 & Rwm0811 & Rwn1215 {
+	local tmp1:2;
+	local tmp2:2;
+	read_w(tmp2, Rwn1215);
 	mov_w(tmp1, tmp2);
-	write_w(r0811, tmp1);
-	r1215 = r1215 + 2;
+	write_w(Rwm0811, tmp1);
+	Rwn1215 = Rwn1215 + 2;
 }
-:mov [r0811], [r1215] is op0007=0xC8 & r0811 & r1215 {
-	local tmp1:2; local tmp2:2;
-	read_w(tmp2, r1215);
+# [Rw n ] , [Rw m ]		C8 nm
+:mov [Rwm0811], [Rwn1215] is op0007=0xC8 & Rwm0811 & Rwn1215 {
+	local tmp1:2;
+	local tmp2:2;
+	read_w(tmp2, Rwn1215);
 	mov_w(tmp1, tmp2);
-	write_w(r0811, tmp1);
+	write_w(Rwm0811, tmp1);
 }
-:mov [r0811], mem1631_w is op0007=0x84 & r0811 & op1215=0 ; mem1631_w {
+# [Rw n ] , mem			84 0n MM MM
+:mov [Rwn0811], mem1631_w is op0007=0x84 & Rwn0811 & op1215=0 ; mem1631_w {
 	local tmp:2;
 	mov_w(tmp, mem1631_w);
-	write_w(r0811, tmp);
+	write_w(Rwn0811, tmp);
 }
-:mov mem1631_w, [r0811] is op0007=0x94 & r0811 & op1215=0 ; mem1631_w {
-	local tmp1:2; local tmp2:2;
-	read_w(tmp2, r0811);
+# mem , [Rw n ]			94 0n MM MM
+:mov mem1631_w, [Rwn0811] is op0007=0x94 & Rwn0811 & op1215=0 ; mem1631_w {
+	local tmp1:2;
+	local tmp2:2;
+	read_w(tmp2, Rwn0811);
 	mov_w(tmp1, tmp2);
 	mem1631_w = tmp1;
 }
-:mov mem1631_w, r0815 is op0007=0xF6 & r0815 ; mem1631_w {
+# mem , reg			F6 RR MM MM
+:mov mem1631_w, reg0815_w is op0007=0xF6 & reg0815_w ; mem1631_w {
 	local tmp:2;
-	mov_w(tmp, r0815);
+	mov_w(tmp, reg0815_w);
 	mem1631_w = tmp;
 }
-:mov r0815, u1631 is op0007=0xE6 & r0815 ; u1631 {
-	mov_w(r0815, u1631:2);
+# reg , #data16			E6 RR ## ##
+:mov reg0815_w, data1631_w is op0007=0xE6 & reg0815_w ; data1631_w {
+	mov_w(reg0815_w, data1631_w);
 }
-:mov r0815, mem1631_w is op0007=0xF2 & r0815 ; mem1631_w {
-	mov_w(r0815, mem1631_w);
+# reg , mem			F2 RR MM MM
+:mov reg0815_w, mem1631_w is op0007=0xF2 & reg0815_w ; mem1631_w {
+	mov_w(reg0815_w, mem1631_w);
 }
-
-
-
-
 
 macro mov_b (a,b) {
 	a = b;
@@ -961,108 +1210,136 @@ macro mov_b (a,b) {
 	setNotZ(b);
 	setN(b);
 }
-:movb rb0811, #s1215 is op0007=0xE1 & rb0811 & s1215 {
-	mov_b(rb0811, s1215:1);
+# Rb n , #data4			E1 #n
+:movb Rbn0811, #data1215_b is op0007=0xE1 & Rbn0811 & data1215_b {
+	mov_b(Rbn0811, data1215_b);
 }
-:movb rb1215, rb0811 is op0007=0xF1 & rb0811 & rb1215 {
-	mov_b(rb1215, rb0811);
+# Rb n , Rb m			F1 nm
+:movb Rbn1215, Rbm0811 is op0007=0xF1 & Rbm0811 & Rbn1215 {
+	mov_b(Rbn1215, Rbm0811);
 }
-:movb rb1215, [r0811 + #off1631] is op0007=0xF4 & r0811 & rb1215 ; off1631 {
-	local tmp:1; read_b(tmp, r0811 + off1631);
-	mov_b(rb1215, tmp);
-}
-:movb rb1215, [r0811+] is op0007=0x99 & r0811 & rb1215 {
-	local tmp:1; read_b(tmp, r0811);
-	mov_b(rb1215, tmp);
-	r0811 = r0811 + 1;
-}
-:movb rb1215, [r0811] is op0007=0xA9 & r0811 & rb1215 {
-	local tmp:1; read_b(tmp, r0811);
-	mov_b(rb1215, tmp);
-}
-:movb [-r0811], rb1215 is op0007=0x89 & r0811 & rb1215 {
-	r0811 = r0811 - 1;
+# Rb n , [Rw m + #data16]	F4 nm ## ##
+:movb Rbn1215, [Rwm0811 + #data1631_w] is op0007=0xF4 & Rwm0811 & Rbn1215 ; data1631_w {
 	local tmp:1;
-	mov_b(tmp, rb1215);
-	write_b(r0811, tmp);
+	read_b(tmp, Rwm0811 + data1631_w);
+	mov_b(Rbn1215, tmp);
 }
-:movb [r0811 + #off1631], rb1215 is op0007=0xE4 & r0811 & rb1215 ; off1631 {
+# Rb n , [Rw m +]		99 nm
+:movb Rbn1215, [Rwm0811+] is op0007=0x99 & Rwm0811 & Rbn1215 {
 	local tmp:1;
-	mov_b(tmp, rb1215);
-	write_b(r0811 + off1631, tmp);
+	read_b(tmp, Rwm0811);
+	mov_b(Rbn1215, tmp);
+	Rwm0811 = Rwm0811 + 1;
 }
-:movb [r0811], rb1215 is op0007=0xB9 & r0811 & rb1215 {
+# Rb n , [Rw m ]		A9 nm
+:movb Rbn1215, [Rwm0811] is op0007=0xA9 & Rwm0811 & Rbn1215 {
 	local tmp:1;
-	mov_b(tmp, rb1215);
-	write_b(r0811, tmp);
+	read_b(tmp, Rwm0811);
+	mov_b(Rbn1215, tmp);
 }
-:movb [r0811+], [r1215] is op0007=0xD9 & r0811 & r1215 {
-	local tmp1:1; local tmp2:1;
-	read_b(tmp2, r1215);
+# [-Rw m ] , Rb n		89 nm
+:movb [-Rwm0811], Rbn1215 is op0007=0x89 & Rwm0811 & Rbn1215 {
+	Rwm0811 = Rwm0811 - 1;
+	local tmp:1;
+	mov_b(tmp, Rbn1215);
+	write_b(Rwm0811, tmp);
+}
+# [Rw m + #data16] , Rb n	E4 nm ## ##
+:movb [Rwm0811 + #data1631_w], Rbn1215 is op0007=0xE4 & Rwm0811 & Rbn1215 ; data1631_w {
+	local tmp:1;
+	mov_b(tmp, Rbn1215);
+	write_b(Rwm0811 + data1631_w, tmp);
+}
+# [Rw m ] , Rb n		B9 nm
+:movb [Rwm0811], Rbn1215 is op0007=0xB9 & Rwm0811 & Rbn1215 {
+	local tmp:1;
+	mov_b(tmp, Rbn1215);
+	write_b(Rwm0811, tmp);
+}
+# [Rw n +] , [Rw m ]		D9 nm
+:movb [Rwn1215+], [Rwm0811] is op0007=0xD9 & Rwm0811 & Rwn1215 {
+	local tmp1:1;
+	local tmp2:1;
+	read_b(tmp2, Rwm0811);
 	mov_b(tmp1, tmp2);
-	write_b(r0811, tmp1);
-	r0811 = r0811 + 1;
+	write_b(Rwn1215, tmp1);
+	Rwn1215 = Rwn1215 + 1;
 }
-:movb [r0811], [r1215+] is op0007=0xE9 & r0811 & r1215 {
-	local tmp1:1; local tmp2:1;
-	read_b(tmp2, r1215);
+# [Rw n ] , [Rw m +]		E9 nm
+:movb [Rwn1215], [Rwm0811+] is op0007=0xE9 & Rwm0811 & Rwn1215 {
+	local tmp1:1;
+	local tmp2:1;
+	read_b(tmp2, Rwm0811);
 	mov_b(tmp1, tmp2);
-	write_b(r0811, tmp1);
-	r1215 = r1215 + 1;
+	write_b(Rwn1215, tmp1);
+	Rwm0811 = Rwm0811 + 1;
 }
-:movb [r0811], [r1215] is op0007=0xC9 & r0811 & r1215 {
-	local tmp1:1; local tmp2:1;
-	read_b(tmp2, r1215);
+# [Rw n ] , [Rw m ]		C9 nm
+:movb [Rwn1215], [Rwm0811] is op0007=0xC9 & Rwm0811 & Rwn1215 {
+	local tmp1:1;
+	local tmp2:1;
+	read_b(tmp2, Rwm0811);
 	mov_b(tmp1, tmp2);
-	write_b(r0811, tmp1);
+	write_b(Rwn1215, tmp1);
 }
-:movb [r0811], mem1631_b is op0007=0xA4 & r0811 & op1215=0 ; mem1631_b {
+# [Rw n ] , mem			A4 0n MM MM
+:movb [Rwn0811], mem1631_b is op0007=0xA4 & Rwn0811 & op1215=0 ; mem1631_b {
 	local tmp:1;
 	mov_b(tmp, mem1631_b);
-	write_b(r0811, tmp);
+	write_b(Rwn0811, tmp);
 }
-:movb mem1631_b, [r0811] is op0007=0xB4 & r0811 & op1215=0 ; mem1631_b {
-	local tmp1:1; local tmp2:1;
-	read_b(tmp2, r0811);
+# mem , [Rw n ]			B4 0n MM MM
+:movb mem1631_b, [Rwn0811] is op0007=0xB4 & Rwn0811 & op1215=0 ; mem1631_b {
+	local tmp1:1;
+	local tmp2:1;
+	read_b(tmp2, Rwn0811);
 	mov_b(tmp1, tmp2);
 	mem1631_b = tmp1;
 }
-:movb mem1631_b, rb0815 is op0007=0xF7 & rb0815 ; mem1631_b {
+# mem , reg			F7 RR MM MM
+:movb mem1631_b, reg0815_b is op0007=0xF7 & reg0815_b ; mem1631_b {
 	local tmp:1;
-	mov_b(tmp, rb0815);
+	mov_b(tmp, reg0815_b);
 	mem1631_b = tmp;
 }
-:movb rb0815, u1623 is op0007=0xE7 & rb0815 ; u1623 {
-	mov_b(rb0815, u1623:1);
+# reg , #data8			E7 RR ## xx
+:movb reg0815_b, data1631_b is op0007=0xE7 & reg0815_b ; data1631_b {
+	mov_b(reg0815_b, data1631_b);
 }
-:movb rb0815, mem1631_b is op0007=0xF3 & rb0815 ; mem1631_b {
-	mov_b(rb0815, mem1631_b);
+# reg , mem			F3 RR MM MM
+:movb reg0815_b, mem1631_b is op0007=0xF3 & reg0815_b ; mem1631_b {
+	mov_b(reg0815_b, mem1631_b);
 }
 
 
-
-:movbs r0811, rb1215 is op0007=0xD0 & r0811 & rb1215 {
-	mov_w(r0811, sext(rb1215));
+# Rw n , Rb m			D0 mn
+:movbs Rwn0811, Rbm1215 is op0007=0xD0 & Rbm1215 & Rwn0811 {
+	mov_w(Rwn0811, sext(Rbm1215));
 }
-:movbs mem1631_w, rb0815 is op0007=0xD5 & rb0815 ; mem1631_w {
+# mem , reg			D5 RR MM MM
+:movbs mem1631_w, reg0815_b is op0007=0xD5 & reg0815_b ; mem1631_w {
 	local tmp:2;
-	mov_w(tmp, sext(rb0815));
+	mov_w(tmp, sext(reg0815_b));
 	mem1631_w = tmp;
 }
-:movbs r0815, mem1631_b is op0007=0xD2 & r0815 ; mem1631_b {
-	mov_w(r0815, sext(mem1631_b));
+# reg , mem			D2 RR MM MM
+:movbs reg0815_w, mem1631_b is op0007=0xD2 & reg0815_w ; mem1631_b {
+	mov_w(reg0815_w, sext(mem1631_b));
 }
 
-:movbz r0811, rb1215 is op0007=0xC0 & r0811 & rb1215 {
-	mov_w(r0811, zext(rb1215));
+# Rw n , Rb m			C0 mn
+:movbz Rwn0811, Rbm1215 is op0007=0xC0 & Rbm1215 & Rwn0811 {
+	mov_w(Rwn0811, zext(Rbm1215));
 }
-:movbz mem1631_w, rb0815 is op0007=0xC5 & rb0815 ; mem1631_w {
+# mem , reg			C5 RR MM MM
+:movbz mem1631_w, reg0815_b is op0007=0xC5 & reg0815_b ; mem1631_w {
 	local tmp:2;
-	mov_w(tmp, zext(rb0815));
+	mov_w(tmp, zext(reg0815_b));
 	mem1631_w = tmp;
 }
-:movbz r0815, mem1631_b is op0007=0xC2 & r0815 ; mem1631_b {
-	mov_w(r0815, zext(mem1631_b));
+# reg , mem			C2 RR MM MM
+:movbz reg0815_w, mem1631_b is op0007=0xC2 & reg0815_w ; mem1631_b {
+	mov_w(reg0815_w, zext(mem1631_b));
 }
 
 macro mul_flags(res) {
@@ -1072,42 +1349,47 @@ macro mul_flags(res) {
 	setC(0:1);
 	setN(res);
 }
-:mul r0811, r1215 is op0007=0x0B & r0811 & r1215 {
-	local md:4 = sext(r0811) * sext(r1215);
+# Rw n , Rw m			0B nm
+:mul Rwn1215, Rwm0811 is op0007=0x0B & Rwm0811 & Rwn1215 {
+	local md:4 = sext(Rwm0811) * sext(Rwn1215);
 	MDL = md[0, 16];
 	MDH = md[16,16];
 	mul_flags(md);
 }
-:mulu r0811, r1215 is op0007=0x1B & r0811 & r1215 {
-	local md:4 = zext(r0811) * zext(r1215);
+# Rw n , Rw m			1B nm
+:mulu Rwn1215, Rwm0811 is op0007=0x1B & Rwm0811 & Rwn1215 {
+	local md:4 = zext(Rwm0811) * zext(Rwn1215);
 	MDL = md[0, 16];
 	MDH = md[16,16];
 	mul_flags(md);
 }
 
-:neg r1215 is op0007=0x81 & op0811=0 & r1215 {
-	local op = r1215;
+# Rw n				81 n0
+:neg Rwn1215 is op0007=0x81 & op0811=0 & Rwn1215 {
+	local op = Rwn1215;
 	local res = - op;
 	setE_w(op);
 	setNotZ(res);
 	setV(sborrow(0, op));
 	setC(op);
 	setN(res);
-	r1215 = res;
+	Rwn1215 = res;
 }
-:negb rb1215 is op0007=0xA1 & op0811=0 & rb1215 {
-	local op = rb1215;
+# Rb n				A1 n0
+:negb Rbn1215 is op0007=0xA1 & op0811=0 & Rbn1215 {
+	local op = Rbn1215;
 	local res = - op;
 	setE_b(op);
 	setNotZ(res);
 	setV(sborrow(0, op));
 	setC(op);
 	setN(res);
-	rb1215 = res;
+	Rbn1215 = res;
 }
 
 
 define pcodeop __nop;
+#				CC 00
 :nop is op0007=0xCC & op0815=0 {
 	__nop();
 }
@@ -1118,17 +1400,24 @@ macro or_w(a,b) {
 	a = a | b;
 	bit_operations_flags_w(a, b);
 }
-:or r1215, operand2_w is op0407=0x7 & r1215 & operand2_w {
-	or_w (r1215, operand2_w);
+# Rw n , #data3			78 n:0###
+# Rw n , [Rw i +]		78 n:11ii
+# Rw n , [Rw i ]		78 n:10ii
+# Rw n , Rw m  			70 nm
+:or Rwn1215, op2_w is op0407=0x7 & Rwn1215 & op2_w {
+	or_w (Rwn1215, op2_w);
 }
-:or mem1631_w, r0815 is op0007=0x74 & r0815 ; mem1631_w {
-	or_w (mem1631_w, r0815);
+# mem , reg			74 RR MM MM
+:or mem1631_w, reg0815_w is op0007=0x74 & reg0815_w ; mem1631_w {
+	or_w (mem1631_w, reg0815_w);
 }
-:or r0815, mem1631_w is op0007=0x72 & r0815 ; mem1631_w {
-	or_w (r0815, mem1631_w);
+# reg , mem			72 RR MM MM
+:or reg0815_w, mem1631_w is op0007=0x72 & reg0815_w ; mem1631_w {
+	or_w (reg0815_w, mem1631_w);
 }
-:or r0815, #u1631 is op0007=0x76 & r0815 ; u1631 {
-	or_w (r0815, u1631:2);
+# reg , #data16			76 RR ## ##
+:or reg0815_w, #data1631_w is op0007=0x76 & reg0815_w ; data1631_w {
+	or_w (reg0815_w, data1631_w);
 }
 
 
@@ -1137,44 +1426,48 @@ macro or_b(a, b) {
 	a = a | b;
 	bit_operations_flags_b(a, b);
 }
-:orb rb1215, operand2_b is op0407=0x7 & rb1215 & operand2_b {
-	or_b(rb1215, operand2_b);
+# Rb n , #data3			79 n:0###
+# Rb n , [Rw i +]		79 n:11ii
+# Rb n , [Rw i ]		79 n:10ii
+# Rb n , Rb m  			79 nm
+:orb Rbn1215, op2_b is op0407=0x7 & Rbn1215 & op2_b {
+	or_b(Rbn1215, op2_b);
 }
-:orb mem1631_b, rb0815 is op0007=0x75 & rb0815 ; mem1631_b {
-	or_b (mem1631_b, rb0815);
+# mem , reg			75 RR MM MM
+:orb mem1631_b, reg0815_b is op0007=0x75 & reg0815_b ; mem1631_b {
+	or_b (mem1631_b, reg0815_b);
 }
-:orb rb0815, mem1631_b is op0007=0x73 & rb0815 ; mem1631_b {
-	or_b (rb0815, mem1631_b);
+# reg , mem			73 RR MM MM
+:orb reg0815_b, mem1631_b is op0007=0x73 & reg0815_b ; mem1631_b {
+	or_b (reg0815_b, mem1631_b);
 }
-:orb rb0815, #u1623 is op0007=0x77 & rb0815 ; u1623 {
-	or_b (rb0815, u1623:1);
-}
-
-
-
-:pcall r0815, addr is op0007=0xE2 & r0815 ; u1631 
-[ addr = (inst_next & 0xFF0000) | u1631; ]
-{
-	local tmp = r0815;
-	Stack = Stack - 4;
-	*:2 (Stack + 2) = tmp;
-	local ret:2 = inst_next;
-	*:2 Stack = ret;	# save current IP
-	IP = addr;
-	goto [addr:3];
+# reg , #data8			77 RR ## xx
+:orb reg0815_b, #data1631_b is op0007=0x77 & reg0815_b ; data1631_b {
+	or_b (reg0815_b, data1631_b);
 }
 
 
-:pop r0815 is op0007=0xFC & r0815 {
-	local tmp = *:2 Stack;
-	Stack = Stack + 2;
-	r0815 = tmp;
-	mov_w_flags(tmp);
+# reg , caddr			E2 RR MM MM
+:pcall reg0815_w, caddr1631 is op0007=0xE2 & reg0815_w ; caddr1631 {
+	SP = SP - 2;
+	write_w(SP, reg0815_w);
+	SP = SP - 2;
+	local ret:2 = 0xffff & inst_next;
+	write_w(SP, ret);
+	IP = caddr1631;
+	goto [caddr1631];
 }
 
+# reg				FC RR
+:pop reg0815_w is op0007=0xFC & reg0815_w {
+	read_w(reg0815_w, SP);
+	SP = SP + 2;
+	mov_w_flags(reg0815_w);
+}
 
-:prior r1215, r0811 is op0007=0x2B & r0811 & r1215 {
-	local tmp = r0811;
+# Rw n , Rw m			2B nm
+:prior Rwn1215, Rwm0811 is op0007=0x2B & Rwm0811 & Rwn1215 {
+	local tmp = Rwm0811;
 	local count:2 = 0;
 	
 	setE_b(0:1);
@@ -1190,48 +1483,70 @@ macro or_b(a, b) {
 		count = count + 1;
 		goto <loop>;
 	<exit>
-	r1215 = count;
+	Rwn1215 = count;
 }
 
-
-:push r0815 is op0007=0xEC & r0815 {
-	local tmp:2 = r0815;
-	Stack = Stack - 2;
-	*:2 Stack = tmp;
-	mov_w_flags(tmp);
+# reg				EC RR
+:push reg0815_w is op0007=0xEC & reg0815_w {
+	SP = SP - 2;
+	write_w(SP, reg0815_w);
+	mov_w_flags(reg0815_w);
 }
 
 
 define pcodeop __power_down;
+#				97 68 97 97
 :pwrdn is op0007=0x97 & op0815=0x68 ; op1631=0x9797 {
 	__power_down();
 }
 
 
-
+#				CB 00
 :ret is op0007=0xCB & op0815=0 {
-	IP = *:2 Stack;
-	Stack = Stack + 2;
+     	local tmp_ip:2;
+	read_w(tmp_ip, SP);
+	local tmp:3 = zext(tmp_ip) | (0xff0000 & inst_next);
+	SP = SP + 2;
+	IP = tmp;
 	return [IP];
 }
 
+#				FB 88
 :reti is op0007=0xFB & op0815=0x88 {
-	IP =  *:2 (Stack + 0);
-	PSW = *:2 (Stack + 2);
-	Stack = Stack + 4;
+	#TODO  if (SYSCON.SGTDIS == 0) do CSP
+	#      see trap
+	local tmp_ip:2;
+	read_w(tmp_ip, SP);
+	local tmp:3 =  zext(tmp_ip) | (0xff0000 & inst_next);
+	SP = SP + 2;
+	read_w(PSW, SP);
+	SP = SP + 2;
+	IP = tmp;
 	return [IP];
 }
 
-:retp r0815 is op0007=0xEB & r0815 {
-	IP =  *:2 (Stack + 0);
-	r0815 = *:2 (Stack + 2);
-	Stack = Stack + 4;
+# reg				EB RR
+:retp reg0815_w is op0007=0xEB & reg0815_w {
+	local tmp_ip:2;
+	read_w(tmp_ip, SP);
+	local tmp:3 = zext(tmp_ip) | (0xff0000 & inst_next);
+	SP = SP + 2;
+	read_w(reg0815_w, SP);
+	SP = SP + 2;
+	IP = tmp;
 	return [IP];
 }
 
+#				DB 00
 :rets is op0007=0xDB & op0815=0 {
-	IP = *:2 Stack;
-	Stack = Stack + 2;
+	local tmp_ip:2;
+	read_w(tmp_ip, SP);
+	local tmp:3 = zext(tmp_ip);
+	SP = SP + 2;
+	read_w(CSP, SP);
+	tmp = tmp | (zext(CSP) << 16);
+	SP = SP + 2;
+	IP = tmp;
 	return [IP];
 }
 
@@ -1245,12 +1560,14 @@ macro rotate_left(a, b) {
 	setN(res);
 	a = res;
 }
-:rol r0811, #u1215 is op0007=0x1C & r0811 & u1215 {
-	rotate_left(r0811, u1215:1);
+# Rw n , #data4			1C #n
+:rol Rwn0811, #data1215_w is op0007=0x1C & Rwn0811 & data1215_w {
+	rotate_left(Rwn0811, data1215_w);
 }
-:rol r1215, r0811 is op0007=0x0C & r0811 & r1215 {
-	local shift = r0811 & 0xF;
-	rotate_left(r1215, shift);
+# Rw n , Rw m			0C nm
+:rol Rwn1215, Rwm0811 is op0007=0x0C & Rwm0811 & Rwn1215 {
+	local shift = Rwm0811 & 0xF;
+	rotate_left(Rwn1215, shift);
 }
 
 macro rotate_right(a, b) {
@@ -1262,31 +1579,30 @@ macro rotate_right(a, b) {
 	setN(res);
 	a = res;
 }
-:ror r0811, #u1215 is op0007=0x3C & r0811 & u1215 {
-	rotate_right(r0811, u1215:1);
+#: Rw n , #data4		3C #n
+:ror Rwn0811, #data1215_w is op0007=0x3C & Rwn0811 & data1215_w {
+	rotate_right(Rwn0811, data1215_w);
 }
-:ror r1215, r0811 is op0007=0x2C & r0811 & r1215 {
-	local shift = r0811 & 0xF;
-	rotate_right(r1215, shift);
+# Rw n , Rw m			2C nm
+:ror Rwn1215, Rwm0811 is op0007=0x2C & Rwm0811 & Rwn1215 {
+	local shift = Rwm0811 & 0xF;
+	rotate_right(Rwn1215, shift);
 }
 
+#				8C 00
+:sbrk is op0007=0x8C & op0815=0 unimpl
 
-# :sbrk is op0007=0x8C & op0815=0 
-
-
-:scxt r0815, #u1631 is op0007=0xC6 & r0815 ; u1631 {
-	local tmp1:2 = r0815;
-	local tmp2:2 = u1631;
-	Stack = Stack - 2;
-	*:2 Stack = tmp1;
-	r0815 = tmp2;
+# reg , #data16	       		C6 RR ## ##
+:scxt reg0815_w, #data1631_w is op0007=0xC6 & reg0815_w ; data1631_w {
+	SP = SP - 2;
+	write_w(SP, reg0815_w);
+	reg0815_w = data1631_w;
 }
-:scxt r0815, mem1631_w is op0007=0xD6 & r0815 ; mem1631_w {
-	local tmp1:2 = r0815;
-	local tmp2:2 = mem1631_w;
-	Stack = Stack - 2;
-	*:2 Stack = tmp1;
-	r0815 = tmp2;
+# reg , mem			D6 RR MM MM
+:scxt reg0815_w, mem1631_w is op0007=0xD6 & reg0815_w ; mem1631_w {
+	SP = SP - 2;
+	write_w(SP, reg0815_w);
+	reg0815_w = mem1631_w;
 }
 
 
@@ -1300,12 +1616,14 @@ macro shift_left(a, b) {
 	setN(res);
 	a = res;
 }
-:shl r0811, #u1215 is op0007=0x5C & r0811 & u1215 {
-	shift_left(r0811, u1215:1);
+# Rw n , #data4			5C #n
+:shl Rwn0811, #data1215_w is op0007=0x5C & Rwn0811 & data1215_w {
+	shift_left(Rwn0811, data1215_w);
 }
-:shl r1215, r0811 is op0007=0x4C & r0811 & r1215 {
-	local shift = r0811 & 0xF;
-	shift_left(r1215, shift);
+# Rw n , Rw m			4C nm
+:shl Rwn1215, Rwm0811 is op0007=0x4C & Rwm0811 & Rwn1215 {
+	local shift = Rwm0811 & 0xF;
+	shift_left(Rwn1215, shift);
 }
 
 macro shift_right(a, b) {
@@ -1317,22 +1635,26 @@ macro shift_right(a, b) {
 	setN(res);
 	a = res;
 }
-:shr r0811, #u1215 is op0007=0x7C & r0811 & u1215 {
-	shift_right(r0811, u1215:1);
+# Rw n , #data4			7C #n
+:shr Rwn0811, #data1215_w is op0007=0x7C & Rwn0811 & data1215_w {
+	shift_right(Rwn0811, data1215_w);
 }
-:shr r1215, r0811 is op0007=0x6C & r0811 & r1215 {
-	local shift = r0811 & 0xF;
-	shift_right(r1215, shift);
+# Rw n , Rw m			6C nm
+:shr Rwn1215, Rwm0811 is op0007=0x6C & Rwm0811 & Rwn1215 {
+	local shift = Rwm0811 & 0xF;
+	shift_right(Rwn1215, shift);
 }
 
 
 
 define pcodeop __software_reset;
+#				B7 48 B7 B7
 :srst is op0007=0xB7 & op0815=0x48 ; op1631=0xB7B7 {
 	__software_reset();
 }
 
 define pcodeop __watchdog_service;
+#				A7 58 A7 A7
 :srvwdt is op0007=0xA7 & op0815=0x58 ; op1631=0xA7A7 {
 	__watchdog_service();
 }
@@ -1344,17 +1666,24 @@ macro sub_w(a, b) {
 	cmp_w(a, b);
 	a = a - b;
 }
-:sub r1215, operand2_w is op0407=0x2 & r1215 & operand2_w {
-	sub_w (r1215, operand2_w);
+# Rw n , #data3			28 n:0###
+# Rw n , [Rw i +]		28 n:11ii
+# Rw n , [Rw i ]		28 n:10ii
+# Rw n , Rw m  			20 nm
+:sub Rwn1215, op2_w is op0407=0x2 & Rwn1215 & op2_w {
+	sub_w (Rwn1215, op2_w);
 }
-:sub mem1631_w, r0815 is op0007=0x24 & r0815 ; mem1631_w {
-	sub_w (mem1631_w, r0815);
+# mem , reg			24 RR MM MM
+:sub mem1631_w, reg0815_w is op0007=0x24 & reg0815_w ; mem1631_w {
+	sub_w (mem1631_w, reg0815_w);
 }
-:sub r0815, mem1631_w is op0007=0x22 & r0815 ; mem1631_w {
-	sub_w (r0815, mem1631_w);
+# reg , mem			22 RR MM MM
+:sub reg0815_w, mem1631_w is op0007=0x22 & reg0815_w ; mem1631_w {
+	sub_w (reg0815_w, mem1631_w);
 }
-:sub r0815, #s1631 is op0007=0x26 & r0815 ; s1631 {
-	sub_w (r0815, s1631:2);
+# reg , #data16			26 RR ## ##
+:sub reg0815_w, #data1631_w is op0007=0x26 & reg0815_w ; data1631_w {
+	sub_w (reg0815_w, data1631_w);
 }
 
 
@@ -1362,17 +1691,24 @@ macro sub_b(a, b) {
 	cmp_b(a, b);
 	a = a - b;
 }
-:subb rb1215, operand2_b is op0407=0x2 & rb1215 & operand2_b {
-	sub_b(rb1215, operand2_b);
+# Rb n , #data3			29 n:0###
+# Rb n , [Rw i +]		29 n:11ii
+# Rb n , [Rw i ]		29 n:10ii
+# Rb n , Rb m  			21 nm
+:subb Rbn1215, op2_b is op0407=0x2 & Rbn1215 & op2_b {
+	sub_b(Rbn1215, op2_b);
 }
-:subb mem1631_b, rb0815 is op0007=0x25 & rb0815 ; mem1631_b {
-	sub_b (mem1631_b, rb0815);
+# mem , reg			25 RR MM MM
+:subb mem1631_b, reg0815_b is op0007=0x25 & reg0815_b ; mem1631_b {
+	sub_b (mem1631_b, reg0815_b);
 }
-:subb rb0815, mem1631_b is op0007=0x23 & rb0815 ; mem1631_b {
-	sub_b (rb0815, mem1631_b);
+# reg , mem			23 RR MM MM
+:subb reg0815_b, mem1631_b is op0007=0x23 & reg0815_b ; mem1631_b {
+	sub_b (reg0815_b, mem1631_b);
 }
-:subb rb0815, #s1623 is op0007=0x27 & rb0815 ; s1623 {
-	sub_b (rb0815, s1623:1);
+# reg , #data8			27 RR ## xx
+:subb reg0815_b, #data1631_b is op0007=0x27 & reg0815_b ; data1631_b {
+	sub_b (reg0815_b, data1631_b);
 }
 
 
@@ -1387,17 +1723,24 @@ macro subc_w(a,b) {
 	setN(res);
 	a = res;
 }
-:subc r1215, operand2_w is op0407=0x3 & r1215 & operand2_w {
-	subc_w (r1215, operand2_w);
+# Rw n , #data3			38 n:0###
+# Rw n , [Rw i +]		38 n:11ii
+# Rw n , [Rw i ]		38 n:10ii
+# Rw n , Rw m			30 nm
+:subc Rwn1215, op2_w is op0407=0x3 & Rwn1215 & op2_w {
+	subc_w (Rwn1215, op2_w);
 }
-:subc mem1631_w, r0815 is op0007=0x34 & r0815 ; mem1631_w {
-	subc_w (mem1631_w, r0815);
+# mem , reg			34 RR MM MM
+:subc mem1631_w, reg0815_w is op0007=0x34 & reg0815_w ; mem1631_w {
+	subc_w (mem1631_w, reg0815_w);
 }
-:subc r0815, mem1631_w is op0007=0x32 & r0815 ; mem1631_w {
-	subc_w (r0815, mem1631_w);
+# reg , mem			32 RR MM MM
+:subc reg0815_w, mem1631_w is op0007=0x32 & reg0815_w ; mem1631_w {
+	subc_w (reg0815_w, mem1631_w);
 }
-:subc r0815, #s1631 is op0007=0x36 & r0815 ; s1631 {
-	subc_w (r0815, s1631:2);
+# reg , #data16			36 RR ## ##
+:subc reg0815_w, #data1631_w is op0007=0x36 & reg0815_w ; data1631_w {
+	subc_w (reg0815_w, data1631_w);
 }
 
 
@@ -1411,25 +1754,33 @@ macro subc_b(a,b) {
 	setN(res);
 	a = res;
 }
-:subcb rb1215, operand2_b is op0407=0x3 & rb1215 & operand2_b {
-	subc_b(rb1215, operand2_b);
+# Rb n , #data3			39 n:0###
+# Rb n , [Rw i +]		39 n:11ii
+# Rb n , [Rw i ]		39 n:10ii
+# Rb n , Rb m			31 nm
+:subcb Rbn1215, op2_b is op0407=0x3 & Rbn1215 & op2_b {
+	subc_b(Rbn1215, op2_b);
 }
-:subcb mem1631_b, rb0815 is op0007=0x35 & rb0815 ; mem1631_b {
-	subc_b (mem1631_b, rb0815);
+# mem , reg			35 RR MM MM
+:subcb mem1631_b, reg0815_b is op0007=0x35 & reg0815_b ; mem1631_b {
+	subc_b (mem1631_b, reg0815_b);
 }
-:subcb rb0815, mem1631_b is op0007=0x33 & rb0815 ; mem1631_b {
-	subc_b (rb0815, mem1631_b);
+# reg , mem			33 RR MM MM
+:subcb reg0815_b, mem1631_b is op0007=0x33 & reg0815_b ; mem1631_b {
+	subc_b (reg0815_b, mem1631_b);
 }
-:subcb rb0815, #s1623 is op0007=0x37 & rb0815 ; s1623 {
-	subc_b (rb0815, s1623);
+# reg , #data8			37 RR ## xx
+:subcb reg0815_b, #data1631_b is op0007=0x37 & reg0815_b ; data1631_b {
+	subc_b (reg0815_b, data1631_b);
 }
 
 
 
 define pcodeop __trap;
-:trap #u0915 is op0007=0x9B & op08=0 & u0915 {
+# #trap7			9B t:ttt0
+:trap #trap7 is op0007=0x9B & op08=0 & trap7 {
 	TODO();
-	local vector:1 = u0915;
+	local vector:1 = trap7;
 	__trap(vector);
 	# (IP) = VECSC*trap7
 	# (CSP) = VECSEG
@@ -1441,17 +1792,24 @@ macro xor_w(a,b) {
 	a = a ^ b;
 	bit_operations_flags_w(a, b);
 }
-:xor r1215, operand2_w is op0407=0x5 & r1215 & operand2_w {
-	xor_w (r1215, operand2_w);
+# Rw n , #data3			58 n:0###
+# Rw n , [Rw i +]		58 n:11ii
+# Rw n , [Rw i ]		58 n:10ii
+# Rw n , Rw m			50 nm
+:xor Rwn1215, op2_w is op0407=0x5 & Rwn1215 & op2_w {
+	xor_w (Rwn1215, op2_w);
 }
-:xor mem1631_w, r0815 is op0007=0x54 & r0815 ; mem1631_w {
-	xor_w (mem1631_w, r0815);
+# mem , reg			54 RR MM MM
+:xor mem1631_w, reg0815_w is op0007=0x54 & reg0815_w ; mem1631_w {
+	xor_w (mem1631_w, reg0815_w);
 }
-:xor r0815, mem1631_w is op0007=0x52 & r0815 ; mem1631_w {
-	xor_w (r0815, mem1631_w);
+# reg , mem			52 RR MM MM
+:xor reg0815_w, mem1631_w is op0007=0x52 & reg0815_w ; mem1631_w {
+	xor_w (reg0815_w, mem1631_w);
 }
-:xor r0815, #u1631 is op0007=0x56 & r0815 ; u1631 {
-	xor_w (r0815, u1631:2);
+# reg , #data16			56 RR ## ##
+:xor reg0815_w, #data1631_w is op0007=0x56 & reg0815_w ; data1631_w {
+	xor_w (reg0815_w, data1631_w);
 }
 
 
@@ -1459,17 +1817,24 @@ macro xor_b(a,b) {
 	a = a ^ b;
 	bit_operations_flags_b(a, b);
 }
-:xorb rb1215, operand2_b is op0407=0x5 & rb1215 & operand2_b {
-	xor_b(rb1215, operand2_b);
+# Rb n , #data3			59 n:0###
+# Rb n , [Rw i +]		59 n:11ii
+# Rb n , [Rw i ]		59 n:10ii
+# Rb n , Rb m			51 nm
+:xorb Rbn1215, op2_b is op0407=0x5 & Rbn1215 & op2_b {
+	xor_b(Rbn1215, op2_b);
 }
-:xorb mem1631_b, rb0815 is op0007=0x55 & rb0815 ; mem1631_b {
-	xor_b (mem1631_b, rb0815);
+# mem , reg			55 RR MM MM
+:xorb mem1631_b, reg0815_b is op0007=0x55 & reg0815_b ; mem1631_b {
+	xor_b (mem1631_b, reg0815_b);
 }
-:xorb rb0815, mem1631_b is op0007=0x53 & rb0815 ; mem1631_b {
-	xor_b (rb0815, mem1631_b);
+# reg , mem			53 RR MM MM
+:xorb reg0815_b, mem1631_b is op0007=0x53 & reg0815_b ; mem1631_b {
+	xor_b (reg0815_b, mem1631_b);
 }
-:xorb rb0815, #u1623 is op0007=0x57 & rb0815 ; u1623 {
-	xor_b (rb0815, u1623:1);
+# reg , #data8			57 RR ## xx
+:xorb reg0815_b, #data1631_b is op0007=0x57 & reg0815_b ; data1631_b {
+	xor_b (reg0815_b, data1631_b);
 }
 
 
