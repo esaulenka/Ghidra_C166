@@ -31,7 +31,7 @@ define register offset=0xFE00 size=2
          sprfee0 sprfee2 sprfee4 sprfee6 sprfee8 sprfeea sprfeec sprfeee 
          sprfef0 sprfef2 sprfef4 sprfef6 sprfef8 sprfefa sprfefc sprfefe 
          sprff00 sprff02 sprff04 sprff06 sprff08 sprff0a sprff0c sprff0e 
-         PSW     sprff12 sprff14 sprff16 sprff18 sprff1a sprff1c sprff1e 
+         PSW     sprff12 sprff14 sprff16 sprff18 sprff1a ZEROS   ONES 
          sprff20 sprff22 sprff24 sprff26 sprff28 sprff2a sprff2c sprff2e 
          sprff30 sprff32 sprff34 sprff36 sprff38 sprff3a sprff3c sprff3e 
          sprff40 sprff42 sprff44 sprff46 sprff48 sprff4a sprff4c sprff4e 
@@ -221,7 +221,7 @@ attach variables [ sfr0815 ]
          sprfee0 sprfee2 sprfee4 sprfee6 sprfee8 sprfeea sprfeec sprfeee 
          sprfef0 sprfef2 sprfef4 sprfef6 sprfef8 sprfefa sprfefc sprfefe 
          sprff00 sprff02 sprff04 sprff06 sprff08 sprff0a sprff0c sprff0e 
-         PSW     sprff12 sprff14 sprff16 sprff18 sprff1a sprff1c sprff1e 
+         PSW     sprff12 sprff14 sprff16 sprff18 sprff1a ZEROS   ONES 
          sprff20 sprff22 sprff24 sprff26 sprff28 sprff2a sprff2c sprff2e 
          sprff30 sprff32 sprff34 sprff36 sprff38 sprff3a sprff3c sprff3e 
          sprff40 sprff42 sprff44 sprff46 sprff48 sprff4a sprff4c sprff4e 
@@ -368,13 +368,18 @@ segcaddr: addr is op0815 ; op1631 [ addr = (op0815 << 16) | op1631; ] { local tm
 
 
 
-reg0815_w: sfr0815      is sfr0815  & op1215<0xF & extR=0  { export sfr0815; }
-reg0815_w: esfr0815     is esfr0815 & op1215<0xF & extR=1  { export esfr0815; }
-reg0815_w: r0811	is r0811    & op1215=0xF   	   { export r0811; }
+sfr0815_: sfr0815 is sfr0815               { export sfr0815; }
+sfr0815_: sfr0815 is sfr0815 & op0815=0x8E { local x:2=0;      export x; }
+sfr0815_: sfr0815 is sfr0815 & op0815=0x8F { local x:2=0xFFFF; export x; }
 
-reg0815_b: sfr0815      is sfr0815  & op1215<0xF & extR=0  { local tmp:1 = sfr0815:1; export tmp; }
+
+reg0815_w: sfr0815_     is sfr0815_ & op1215<0xF & extR=0  { export sfr0815_; }
+reg0815_w: esfr0815     is esfr0815 & op1215<0xF & extR=1  { export esfr0815; }
+reg0815_w: r0811        is r0811    & op1215=0xF   	       { export r0811; }
+
+reg0815_b: sfr0815_     is sfr0815_ & op1215<0xF & extR=0  { local tmp:1 = sfr0815_:1; export tmp; }
 reg0815_b: esfr0815     is esfr0815 & op1215<0xF & extR=1  { local tmp:1 = esfr0815:1; export tmp; } 
-reg0815_b: rb0811	is rb0811   & op1215=0xF   	   { export rb0811; }
+reg0815_b: rb0811       is rb0811   & op1215=0xF   	       { export rb0811; }
 
 qq0815: addr	is op15=0 & op0815 [ addr = 0xFD00 + 2 * op0815; ]				  { export *:2 addr; }
 qq0815: addr	is op15=1 & extR=0 & op0815 & op1215<0xF [ addr = 0xFF00 + 2 * (op0815 & 0x7F); ] { export *:2 addr; }

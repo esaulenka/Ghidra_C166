@@ -407,8 +407,6 @@
     <register name="sprff16" group="SPR_UNNAMED"/>
     <register name="sprff18" group="SPR_UNNAMED"/>
     <register name="sprff1a" group="SPR_UNNAMED"/>
-    <register name="sprff1c" rename="ZEROS" group="SPR"/>
-    <register name="sprff1e" rename="ONES" group="SPR"/>
     <register name="sprff20" group="SPR_UNNAMED"/>
     <register name="sprff22" group="SPR_UNNAMED"/>
     <register name="sprff24" group="SPR_UNNAMED"/>
