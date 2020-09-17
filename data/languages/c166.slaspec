@@ -1074,6 +1074,10 @@ define pcodeop __idle;
 	IP = rel0815;
 	goto [IP];
 }
+:jmpr "cc_UC", rel0815 is op0003=0xD & op0407=0 & rel0815 {
+	IP = rel0815;
+	goto [IP];
+}
 
 # seg , caddr			FA SS MM MM
 :jmps segcaddr is op0007=0xFA ... & segcaddr {
