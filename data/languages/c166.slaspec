@@ -319,14 +319,14 @@ Rbm1215: rb1215 is rb1215  	{ export rb1215; }
 Rbm0811: rb0811	is rb0811	{ export rb0811; }
 Rbn0811: rb0811	is rb0811	{ export rb0811; }
 
-op2_w: Rwm0811	   is op0003=0 & Rwm0811		{ export Rwm0811; }
-op2_w: #u0810	   is op0003=8 & op11=0 & u0810		{ local x:2; x = u0810;	export x; }
+op2_w: Rwm0811     is op0003=0 & Rwm0811			{ export Rwm0811; }
+op2_w: #u0810      is op0003=8 & op11=0 & u0810		{ local x:2; x = u0810;	export x; }
 op2_w: [Rwi0809]   is op0003=8 & op1011=2 & Rwi0809	{ local x:2; read_w(x, Rwi0809); export x; }
 op2_w: [Rwi0809+]  is op0003=8 & op1011=3 & Rwi0809	{ local x:2; read_w(x, Rwi0809); Rwi0809 = Rwi0809 + 2; export x; }
 
-op2_b: Rbm0811	   is op0003=1 & Rbm0811	 	{ export Rbm0811; }
-op2_b: #u0810	   is op0003=9 & op11=0 & u0810		{ local x:1; x = u0810;	export x; }
-op2_b: [Rwi0809	   is op0003=9 & op1011=2 & Rwi0809	{ local x:1; read_b(x, Rwi0809); export x; }
+op2_b: Rbm0811     is op0003=1 & Rbm0811			{ export Rbm0811; }
+op2_b: #u0810      is op0003=9 & op11=0 & u0810		{ local x:1; x = u0810;	export x; }
+op2_b: [Rwi0809]   is op0003=9 & op1011=2 & Rwi0809	{ local x:1; read_b(x, Rwi0809); export x; }
 op2_b: [Rwi0809+]  is op0003=9 & op1011=3 & Rwi0809	{ local x:1; read_b(x, Rwi0809); Rwi0809 = Rwi0809 + 1; export x; }
 
 
@@ -343,18 +343,18 @@ mem: addr is dpp3031=3 & off1629 [ addr = (DPP3<<14) | off1629; ]	{ local x:3 = 
 mem1631_w: mem is mem { export *:2 mem; }
 mem1631_b: mem is mem { export *:1 mem; }
 
-data1631_w: u1631  is u1631   { local tmp:2 = u1631; export tmp; }
-data1631_b: u1631  is u1631   { local tmp:1 = u1631:1; export tmp; }
-data1623: u1623   is u1623	  { local tmp:1 = u1623; export tmp; }
-data2431: u2431  is u2431	  { local tmp:1 = u2431; export tmp; }
-data1215_b: op1215  is op1215  { local tmp:1 = op1215; export tmp; }
-data1215_w: op1215  is op1215  { local tmp:2 = op1215; export tmp; }
-mask2431: op2431  is op2431  { local tmp:1 = op2431; export tmp; }
-mask1623: op1623 is op1623  { local tmp:1 = op1623; export tmp; }
+data1631_w: "#"^u1631  is u1631   { local tmp:2 = u1631; export tmp; }
+data1631_b: "#"^u1631  is u1631   { local tmp:1 = u1631:1; export tmp; }
+data1623:   "#"^u1623  is u1623	  { local tmp:1 = u1623; export tmp; }
+data2431:   "#"^u2431  is u2431	  { local tmp:1 = u2431; export tmp; }
+data1215_b: "#"^op1215 is op1215  { local tmp:1 = op1215; export tmp; }
+data1215_w: "#"^op1215 is op1215  { local tmp:2 = op1215; export tmp; }
+mask2431:   "#"^op2431 is op2431  { local tmp:1 = op2431; export tmp; }
+mask1623:   "#"^op1623 is op1623  { local tmp:1 = op1623; export tmp; }
 
 irang2: imm is u1213 [ imm = u1213 + 1; ] { local tmp:1 = imm; export tmp; }
 
-rel0815: addr is s0815 [ addr = inst_next + (2 * s0815); ]  { local tmp:3 = addr; export tmp;  }
+rel0815: addr is s0815 [ addr = inst_next + (2 * s0815); ] { local tmp:3 = addr; export tmp;  }
 rel1623: addr is s1623 [ addr = inst_next + (2 * s1623); ] { local tmp:3 = addr; export tmp;  }
 
 trap7: u0915 is u0915 { local tmp:1 = u0915; export tmp; }
@@ -467,7 +467,7 @@ macro add_w(a, b) {
 	add_w (reg0815_w, mem1631_w);
 }
 # reg , #data16			06 RR ## ##
-:add reg0815_w, #data1631_w is op0007=0x06 & reg0815_w ; data1631_w {
+:add reg0815_w, data1631_w is op0007=0x06 & reg0815_w ; data1631_w {
 	add_w (reg0815_w, data1631_w);
 }
 
@@ -497,7 +497,7 @@ macro add_b(a, b) {
 	add_b (reg0815_b, mem1631_b);
 }
 # reg , #data8			07 RR ## xx
-:addb reg0815_b, #data1631_b is op0007=0x07 & reg0815_b ; data1631_b {
+:addb reg0815_b, data1631_b is op0007=0x07 & reg0815_b ; data1631_b {
 	add_b (reg0815_b, data1631_b);
 }
 
@@ -529,7 +529,7 @@ macro addc_w(a,b) {
 	addc_w (reg0815_w, mem1631_w);
 }
 # reg , #data16			16 RR ## ##
-:addc reg0815_w, #data1631_w is op0007=0x16 & reg0815_w ; data1631_w {
+:addc reg0815_w, data1631_w is op0007=0x16 & reg0815_w ; data1631_w {
 	addc_w (reg0815_w, data1631_w);
 }
 
@@ -560,7 +560,7 @@ macro addc_b(a,b) {
 	addc_b (reg0815_b, mem1631_b);
 }
 # reg , #data8			17 RR ## xx
-:addcb reg0815_b, #data1631_b is op0007=0x17 & reg0815_b ; data1631_b {
+:addcb reg0815_b, data1631_b is op0007=0x17 & reg0815_b ; data1631_b {
 	addc_b (reg0815_b, data1631_b);
 }
 
@@ -602,7 +602,7 @@ macro and_w(a,b) {
 	and_w (reg0815_w, mem1631_w);
 }
 # reg , #data16			66 RR ## ##
-:and reg0815_w, #data1631_w is op0007=0x66 & reg0815_w ; data1631_w {
+:and reg0815_w, data1631_w is op0007=0x66 & reg0815_w ; data1631_w {
 	and_w (reg0815_w, data1631_w);
 }
 
@@ -628,7 +628,7 @@ macro and_b(a, b) {
 	add_b (reg0815_b, mem1631_b);
 }
 # reg , #data8			67 RR ## xx
-:andb reg0815_b, #data1631_b is op0007=0x67 & reg0815_b ; data1631_b {
+:andb reg0815_b, data1631_b is op0007=0x67 & reg0815_b ; data1631_b {
 	and_b (reg0815_b, data1631_b);
 }
 
@@ -644,7 +644,7 @@ macro ashr_w(a, b) {
 	a = res;
 }
 # Rw n , #data4			BC #n
-:ashr Rwn0811, #data1215_w is op0007=0xBC & Rwn0811 & data1215_w {
+:ashr Rwn0811, data1215_w is op0007=0xBC & Rwn0811 & data1215_w {
 	ashr_w (Rwn0811, data1215_w);
 }
 # Rw n , Rw m			AC nm
@@ -695,7 +695,7 @@ macro bitop_flags2(op1, op2) {
 	bitop_flags2(b1, b2);
 }
 # bitoff Q , #mask8 , #data8	1A QQ ## @@
-:bfldh qq0815, #mask2431, #data1623 is op0007=0x1A & qq0815 ; data1623 & mask2431 {
+:bfldh qq0815, mask2431, data1623 is op0007=0x1A & qq0815 ; data1623 & mask2431 {
 	local mask:2 = zext(mask2431) << 8;
 	local data:2 = zext(data1623) << 8;
 	local tmp:2 = (qq0815 & ~mask) | data;
@@ -703,7 +703,7 @@ macro bitop_flags2(op1, op2) {
 	qq0815 = tmp;
 }
 # bitoff Q , #mask8 , #data8	0A QQ @@ ##
-:bfldl qq0815, #mask1623, #data2431 is op0007=0x0A & qq0815 ; data2431 & mask1623 {
+:bfldl qq0815, mask1623, data2431 is op0007=0x0A & qq0815 ; data2431 & mask1623 {
 	local mask:2 = zext(mask1623);
 	local data:2 = zext(data2431);
 	local tmp:2 = (qq0815 & ~mask) | data;
@@ -810,7 +810,7 @@ macro cmp_w(a, b) {
 	cmp_w (reg0815_w, mem1631_w);
 }
 # reg , #data16			46 RR ## ##
-:cmp reg0815_w, #data1631_w is op0007=0x46 & reg0815_w ; data1631_w {
+:cmp reg0815_w, data1631_w is op0007=0x46 & reg0815_w ; data1631_w {
 	cmp_w (reg0815_w, data1631_w);
 }
 
@@ -835,7 +835,7 @@ macro cmp_b(a, b) {
 	cmp_b (reg0815_b, mem1631_b);
 }
 # reg , #data8			47 RR ## xx
-:cmpb reg0815_b, #data1631_b is op0007=0x47 & reg0815_b ; data1631_b {
+:cmpb reg0815_b, data1631_b is op0007=0x47 & reg0815_b ; data1631_b {
 	cmp_b (reg0815_b, data1631_b);
 }
 
@@ -849,18 +849,18 @@ cmp_i_d:"d1" is op0407=0xA { local inc:2 = -1; export inc; }
 cmp_i_d:"d2" is op0407=0xB { local inc:2 = -2; export inc; }
 cmp_i_d:"i1" is op0407=0x8 { local inc:2 =  1; export inc; }
 cmp_i_d:"i2" is op0407=0x9 { local inc:2 =  2; export inc; }
-# Rw n , #data16	     	A6 Fn ## ##
+# Rw n , #data16		A6 Fn ## ##
 # Rw n , #data16		B6 Fn ## ##
 # Rw n , #data16		86 Fn ## ##
 # Rw n , #data16		96 Fn ## ##
-:cmp^cmp_i_d Rwn0811, #data1631_w is op0003=0x6 & cmp_i_d & Rwn0811 & op1215=0xF ; data1631_w {
+:cmp^cmp_i_d Rwn0811, data1631_w is op0003=0x6 & cmp_i_d & Rwn0811 & op1215=0xF ; data1631_w {
 	cmp_inc_dec (Rwn0811, data1631_w, cmp_i_d);
 }
 # Rw n , #data4			A0 #n
 # Rw n , #data4			B0 #n
 # Rw n , #data4			80 #n
 # Rw n , #data4			90 #n
-:cmp^cmp_i_d Rwn0811, #data1215_w is op0003=0x0 & cmp_i_d & Rwn0811 & data1215_w {
+:cmp^cmp_i_d Rwn0811, data1215_w is op0003=0x0 & cmp_i_d & Rwn0811 & data1215_w {
 	cmp_inc_dec (Rwn0811, data1215_w, cmp_i_d);
 }
 # Rw n , mem			A2 Fn MM MM
@@ -1113,7 +1113,7 @@ macro mov_w (a,b) {
 	mov_w_flags(b);
 }
 # Rw n , #data4			E0 #n
-:mov Rwn0811, #data1215_w is op0007=0xE0 & Rwn0811 & data1215_w {
+:mov Rwn0811, data1215_w is op0007=0xE0 & Rwn0811 & data1215_w {
 	mov_w(Rwn0811, data1215_w);
 }
 # Rw n , Rw m			F0 nm
@@ -1121,7 +1121,7 @@ macro mov_w (a,b) {
 	mov_w(Rwn1215, Rwm0811);
 }
 # Rw n , [Rw m +#data16]	D4 nm ## ##
-:mov Rwn1215, [Rwm0811 + #data1631_w] is op0007=0xD4 & Rwm0811 & Rwn1215 ; data1631_w {
+:mov Rwn1215, [Rwm0811 + data1631_w] is op0007=0xD4 & Rwm0811 & Rwn1215 ; data1631_w {
 	local tmp:2;
 	read_w(tmp, Rwm0811 + data1631_w);
 	mov_w(Rwn1215, tmp);
@@ -1147,7 +1147,7 @@ macro mov_w (a,b) {
 	write_w(Rwm0811, tmp);
 }
 # [Rw m +#data16] , Rw n	C4 nm ## ##
-:mov [Rwm0811 + #data1631_w], Rwn1215 is op0007=0xC4 & Rwm0811 & Rwn1215 ; data1631_w {
+:mov [Rwm0811 + data1631_w], Rwn1215 is op0007=0xC4 & Rwm0811 & Rwn1215 ; data1631_w {
 	local tmp:2;
 	mov_w(tmp, Rwn1215);
 	write_w(Rwm0811 + data1631_w, tmp);
@@ -1220,7 +1220,7 @@ macro mov_b (a,b) {
 	setN(b);
 }
 # Rb n , #data4			E1 #n
-:movb Rbn0811, #data1215_b is op0007=0xE1 & Rbn0811 & data1215_b {
+:movb Rbn0811, data1215_b is op0007=0xE1 & Rbn0811 & data1215_b {
 	mov_b(Rbn0811, data1215_b);
 }
 # Rb n , Rb m			F1 nm
@@ -1228,7 +1228,7 @@ macro mov_b (a,b) {
 	mov_b(Rbn1215, Rbm0811);
 }
 # Rb n , [Rw m + #data16]	F4 nm ## ##
-:movb Rbn1215, [Rwm0811 + #data1631_w] is op0007=0xF4 & Rwm0811 & Rbn1215 ; data1631_w {
+:movb Rbn1215, [Rwm0811 + data1631_w] is op0007=0xF4 & Rwm0811 & Rbn1215 ; data1631_w {
 	local tmp:1;
 	read_b(tmp, Rwm0811 + data1631_w);
 	mov_b(Rbn1215, tmp);
@@ -1254,7 +1254,7 @@ macro mov_b (a,b) {
 	write_b(Rwm0811, tmp);
 }
 # [Rw m + #data16] , Rb n	E4 nm ## ##
-:movb [Rwm0811 + #data1631_w], Rbn1215 is op0007=0xE4 & Rwm0811 & Rbn1215 ; data1631_w {
+:movb [Rwm0811 + data1631_w], Rbn1215 is op0007=0xE4 & Rwm0811 & Rbn1215 ; data1631_w {
 	local tmp:1;
 	mov_b(tmp, Rbn1215);
 	write_b(Rwm0811 + data1631_w, tmp);
@@ -1425,7 +1425,7 @@ macro or_w(a,b) {
 	or_w (reg0815_w, mem1631_w);
 }
 # reg , #data16			76 RR ## ##
-:or reg0815_w, #data1631_w is op0007=0x76 & reg0815_w ; data1631_w {
+:or reg0815_w, data1631_w is op0007=0x76 & reg0815_w ; data1631_w {
 	or_w (reg0815_w, data1631_w);
 }
 
@@ -1451,7 +1451,7 @@ macro or_b(a, b) {
 	or_b (reg0815_b, mem1631_b);
 }
 # reg , #data8			77 RR ## xx
-:orb reg0815_b, #data1631_b is op0007=0x77 & reg0815_b ; data1631_b {
+:orb reg0815_b, data1631_b is op0007=0x77 & reg0815_b ; data1631_b {
 	or_b (reg0815_b, data1631_b);
 }
 
@@ -1570,7 +1570,7 @@ macro rotate_left(a, b) {
 	a = res;
 }
 # Rw n , #data4			1C #n
-:rol Rwn0811, #data1215_w is op0007=0x1C & Rwn0811 & data1215_w {
+:rol Rwn0811, data1215_w is op0007=0x1C & Rwn0811 & data1215_w {
 	rotate_left(Rwn0811, data1215_w);
 }
 # Rw n , Rw m			0C nm
@@ -1589,7 +1589,7 @@ macro rotate_right(a, b) {
 	a = res;
 }
 #: Rw n , #data4		3C #n
-:ror Rwn0811, #data1215_w is op0007=0x3C & Rwn0811 & data1215_w {
+:ror Rwn0811, data1215_w is op0007=0x3C & Rwn0811 & data1215_w {
 	rotate_right(Rwn0811, data1215_w);
 }
 # Rw n , Rw m			2C nm
@@ -1602,7 +1602,7 @@ macro rotate_right(a, b) {
 :sbrk is op0007=0x8C & op0815=0 unimpl
 
 # reg , #data16	       		C6 RR ## ##
-:scxt reg0815_w, #data1631_w is op0007=0xC6 & reg0815_w ; data1631_w {
+:scxt reg0815_w, data1631_w is op0007=0xC6 & reg0815_w ; data1631_w {
 	SP = SP - 2;
 	write_w(SP, reg0815_w);
 	reg0815_w = data1631_w;
@@ -1626,7 +1626,7 @@ macro shift_left(a, b) {
 	a = res;
 }
 # Rw n , #data4			5C #n
-:shl Rwn0811, #data1215_w is op0007=0x5C & Rwn0811 & data1215_w {
+:shl Rwn0811, data1215_w is op0007=0x5C & Rwn0811 & data1215_w {
 	shift_left(Rwn0811, data1215_w);
 }
 # Rw n , Rw m			4C nm
@@ -1645,7 +1645,7 @@ macro shift_right(a, b) {
 	a = res;
 }
 # Rw n , #data4			7C #n
-:shr Rwn0811, #data1215_w is op0007=0x7C & Rwn0811 & data1215_w {
+:shr Rwn0811, data1215_w is op0007=0x7C & Rwn0811 & data1215_w {
 	shift_right(Rwn0811, data1215_w);
 }
 # Rw n , Rw m			6C nm
@@ -1691,7 +1691,7 @@ macro sub_w(a, b) {
 	sub_w (reg0815_w, mem1631_w);
 }
 # reg , #data16			26 RR ## ##
-:sub reg0815_w, #data1631_w is op0007=0x26 & reg0815_w ; data1631_w {
+:sub reg0815_w, data1631_w is op0007=0x26 & reg0815_w ; data1631_w {
 	sub_w (reg0815_w, data1631_w);
 }
 
@@ -1716,7 +1716,7 @@ macro sub_b(a, b) {
 	sub_b (reg0815_b, mem1631_b);
 }
 # reg , #data8			27 RR ## xx
-:subb reg0815_b, #data1631_b is op0007=0x27 & reg0815_b ; data1631_b {
+:subb reg0815_b, data1631_b is op0007=0x27 & reg0815_b ; data1631_b {
 	sub_b (reg0815_b, data1631_b);
 }
 
@@ -1748,7 +1748,7 @@ macro subc_w(a,b) {
 	subc_w (reg0815_w, mem1631_w);
 }
 # reg , #data16			36 RR ## ##
-:subc reg0815_w, #data1631_w is op0007=0x36 & reg0815_w ; data1631_w {
+:subc reg0815_w, data1631_w is op0007=0x36 & reg0815_w ; data1631_w {
 	subc_w (reg0815_w, data1631_w);
 }
 
@@ -1779,7 +1779,7 @@ macro subc_b(a,b) {
 	subc_b (reg0815_b, mem1631_b);
 }
 # reg , #data8			37 RR ## xx
-:subcb reg0815_b, #data1631_b is op0007=0x37 & reg0815_b ; data1631_b {
+:subcb reg0815_b, data1631_b is op0007=0x37 & reg0815_b ; data1631_b {
 	subc_b (reg0815_b, data1631_b);
 }
 
@@ -1817,7 +1817,7 @@ macro xor_w(a,b) {
 	xor_w (reg0815_w, mem1631_w);
 }
 # reg , #data16			56 RR ## ##
-:xor reg0815_w, #data1631_w is op0007=0x56 & reg0815_w ; data1631_w {
+:xor reg0815_w, data1631_w is op0007=0x56 & reg0815_w ; data1631_w {
 	xor_w (reg0815_w, data1631_w);
 }
 
@@ -1842,7 +1842,7 @@ macro xor_b(a,b) {
 	xor_b (reg0815_b, mem1631_b);
 }
 # reg , #data8			57 RR ## xx
-:xorb reg0815_b, #data1631_b is op0007=0x57 & reg0815_b ; data1631_b {
+:xorb reg0815_b, data1631_b is op0007=0x57 & reg0815_b ; data1631_b {
 	xor_b (reg0815_b, data1631_b);
 }
 
