@@ -339,8 +339,8 @@ memDpp: addr is dpp3031=2 & off1629 [ addr = (DPP2<<14) | off1629; ]	{ local x:3
 memDpp: addr is dpp3031=3 & off1629 [ addr = (DPP3<<14) | off1629; ]	{ local x:3 = (zext(DPP3) << 14) | off1629; export x; }
 memExt: addr is extOffset & off1629 [ addr = extOffset  | off1629; ]	{ local x:3 = extOffset | off1629;          export x; }
 
-mem1631_w: mem		is extP=0  & memDpp	{ export *:2 memDpp; }
-mem1631_b: mem		is extP=0  & memDpp	{ export *:1 memDpp; }
+mem1631_w: memDpp   is extP=0  & memDpp	{ export *:2 memDpp; }
+mem1631_b: memDpp   is extP=0  & memDpp	{ export *:1 memDpp; }
 mem1631_w: memExt	is extP!=0 & memExt { export *:2 memExt; }
 mem1631_b: memExt	is extP!=0 & memExt { export *:1 memExt; }
 
