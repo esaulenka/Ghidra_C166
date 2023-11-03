@@ -114,8 +114,8 @@ ExtDec:		is ExtDec_P & ExtDec_R { }
 @define PSW_N		"PSW[0,1]"
 
 #### flags macros
-macro setE_b(x)		{ $(PSW_E) = (x == 0xFF); }
-macro setE_w(x)		{ $(PSW_E) = (x == 0xFFFF); }
+macro setE_b(x)		{ $(PSW_E) = (x == 0x80); }
+macro setE_w(x)		{ $(PSW_E) = (x == 0x8000); }
 macro setNotZ(x)	{ $(PSW_Z) = (x == 0); }
 macro setV(x)		{ $(PSW_V) = (x != 0); }
 macro setC(val)		{ $(PSW_C) = (val != 0); }
